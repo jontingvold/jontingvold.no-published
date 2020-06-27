@@ -1,0 +1,35 @@
+body, header, article, footer {margin: 0; padding: 0; width:100%; }
+
+/* Creates a cool effect in Safari if you scroll to much. */
+body {background:#111;}
+#container {background:#fff;}
+
+article {padding-top:40px;}
+
+/* Print background colors and images */
+@media print and (color) {
+   * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+   }
+}
+
+/* PRINT */
+@media print {
+    header, footer,
+    .advertisement, .hideonprint {
+        display:none;
+    }
+    
+    body {
+        background-image:none;
+        background-color:#fff;
+        color:#000;
+    }
+    
+    @page { 
+        size: auto;   /*A4*/
+        margin:3cm;
+    }
+    article {width:120mm;margin:0 auto;}
+}

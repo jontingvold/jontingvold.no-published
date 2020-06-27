@@ -1,0 +1,256 @@
+/* THEME SPECIFIC */
+
+/* Color */
+h6, a {
+    color:#d00; 
+}
+
+/* Sans serif */
+body, .flex p {
+    font-family:-apple-system, BlinkMacSystemFont, Roboto, 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height:1.4;
+    
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+    font-feature-settings: "kern";
+    
+    font-feature-settings: 'lnum'; /* Lining figures (not supported by Minion Pro) */
+}
+@media (max-width: 500px) {
+    body {font-size:18px;}
+}
+@media(min-width: 500px) {
+    body {font-size:18px;}
+}
+figcaption {}
+
+/* Serif */
+
+p, ul, ol {
+    font-family: "Minion Pro Regular", "Times", serif;
+    font-feature-settings: 'onum'; /* Old style figures (not supported by Minion Pro) */
+    font-feature-settings: "pnum"; /* Proportional figures */
+}
+@media (max-width: 500px) {
+    p, ul, ol {font-size:18px;}
+}
+@media(min-width: 500px) {
+    p, ul, ol {font-size:18px;}
+}
+
+/* Monospace */
+pre, code {
+    font-family: Courier, "Courier New", monospace;
+}
+
+/* Typography color, weight and style */
+@media(min-width: 500px) {
+    @supports (hyphens: auto) or 
+        (-webkit-hyphens: auto) or
+        (-moz-hyphens: auto) or
+        (-ms-hyphens: auto) {
+    	p {
+            text-align:justify; /* Needs lang attribute on parent element to work. */
+            hyphens: auto;
+            -webkit-hyphens: auto; /* Only Safari, not Chrome. */
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+    }
+}
+h6 {} /* Kicker */ /* Color set at top */
+h1 {text-align:center;}     /* Book title */
+h2 {}                       /* Chapter title */
+/*h3 {} */                       /* Section title */   
+h4 {}                       /* Subsection title */
+/*h5 {}*/                   /* Paragraph title */
+big {}                      
+small, .small {color:#999;}
+pre {}
+
+/* Typography color, weight and style */
+a { text-decoration: none; } /* Color set at top */
+a:hover { text-decoration: underline; }
+a:active { outline: none; }
+
+b {}
+i {}
+strike {}
+.smallcaps {}
+
+/* END THEME SPECIFIC */
+
+
+
+
+
+/* BASELINE STUFF */
+
+/* Container width */
+.container {
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+h1,h2,h3,h4,h5,h6,p,pre,ul,ol,table,big,small,figcaption {
+    max-width:600px;
+    display:block;
+    margin-left:auto;margin-right:auto;
+}
+@media (max-width: 300px) {
+    h1,h2,h3,h4,h5,h6,p,big,small,pre,ul,ol,table,
+    figcaption {
+        padding-left:5%;padding-right:5%;
+    }
+}
+@media(min-width: 300px) {
+    h1,h2,h3,h4,h5,h6,p,big,small,pre,ul,ol,table,
+    figcaption {
+        padding-left:7%;padding-right:7%;
+    }
+}
+@media(min-width: 620px) {
+    figcaption {
+        padding-left:0;padding-right:0;
+    }
+}
+
+
+figure {max-width: 100%;margin-left:auto;margin-right:auto;}
+ul, ol {list-style-position: inside;}
+ul ul, ol ol, ul ol, ol ul {list-style-position: inside;padding-left:1.5em;}
+
+/* Fix from WYIWYG-stylesheet*/   
+p {margin:0 auto 1em auto !important;}
+
+/* Not implemented yet. */
+hr {width:30px;height: 1px;border:0;border-top:1px #aaa solid;margin:2em auto;}
+
+/* Text size and white space size */
+
+@media (max-width: 500px) {
+    p {}
+    h6 {font-size:0.7em;margin-top:3em;margin-bottom:0.5em;} /* Kicker */
+    h6+h1, h6+h2, h6+h3, h6+h4 {margin-top:0em;}
+    h1 {font-size:2.0em;margin-top:0.5em;margin-bottom:0.7em;}
+    h2 {font-size:1.4em;margin-top:0.5em;margin-bottom:0.7em;}
+    /*h3 {font-size:1em;margin-top:2.0em;margin-bottom:0.5em;}*/
+    h4 {font-size:0.9em;margin-top:2.0em;margin-bottom:0.5em;}
+    /*h5 {font-size:1em;margin-top:1.0em;margin-bottom:0;}*/
+    big {font-size:1em;margin-top:1em;margin-bottom:1em;}
+    small, .small {font-size:0.7em;margin-top:1em;margin-bottom:1em;}
+    pre {font-size:0.8em;}
+    figcaption {font-size:0.8em;margin-top:0.5em;margin-bottom:0.5em;}
+    figcaption.small  {font-size:0.6em;margin-top:0.5em;margin-bottom:0.5em;}
+    table caption {margin-top:1em;margin-bottom:1em;}
+    table {font-size:0.8em;}
+    
+    figure, table, .flex {margin-top:2em;margin-bottom:2em;}
+}
+@media(min-width: 500px) {
+    p {}
+    h6 {font-size:0.8em;margin-top:5em;margin-bottom:0.5em;} /* Kicker */
+    h6+h1, h6+h2, h6+h3 {margin-top:0em;}
+    h1 {font-size:2.0em;margin-top:0.5em;margin-bottom:2.0em;}
+    h2 {font-size:1.6em;margin-top:0.5em;margin-bottom:1.5em;}
+    /*h3 {font-size:0.9em;margin-top:2.0em;margin-bottom:0.5em;}*/
+    h4 {font-size:0.9em;margin-top:2.0em;margin-bottom:0.5em;}
+    /*h5 {font-size:0.9em;margin-top:1.0em;margin-bottom:0;}*/
+    big {font-size:1em;margin-top:1em;margin-bottom:1em;}
+    small, .small {font-size:0.7em;margin-top:1em;margin-bottom:1em;}
+    pre {font-size:0.8em;}
+    figcaption {font-size:0.8em;margin-top:0.5em;margin-bottom:0.5em;}
+    figcaption.small  {font-size:0.6em;margin-top:0.5em;margin-bottom:0.5em;}
+    table caption {margin-top:1em;margin-bottom:1em;}
+    table {font-size:0.7em;}
+    
+    figure, table, .flex {margin-top:2em;margin-bottom:2em;}
+}
+
+
+/* Typography color, weight and style */
+
+p {
+    /* Text figures - Not supported by minion pro */
+}
+pre {overflow-x:scroll;}
+
+/* Typography color, weight and style */
+.lowercasesmallcaps {font-variant: all-small-caps;font-feature-settings: "c2sc", "smcp";}
+.smallcaps {font-variant: small-caps;font-feature-settings: "smcp";}
+.numbering::after {content:"\00a0\00a0\00a0\00a0";}
+
+/* Block elements styling */
+
+/* Image */
+figure {}
+table caption .numbering, figcaption .numbering {font-weight:bold;}
+@media (min-width: 600px) {
+    figure.left {float:left;margin:0 1.5em 0.5em 0;padding:0;}
+    figure.right {float:right;margin:0 0 0.5em 1.5em;padding:0;}
+}
+figure.fixed {}
+figure.fixed .image-container {position:normal;width:inherit;overflow:scroll;}
+figure.fixed .image-container img {width:inherit;}
+img {width:100%;}
+
+/* Table */
+table {
+    display:table;
+	overflow:auto;
+	border-collapse: collapse;
+	
+    font-feature-settings: "lnum"; /* Lining figures (instead of old style figures) */
+    font-feature-settings: "tnum"; /* Tabular figures (instead of Proportional figures) */
+}
+
+thead, tbody {border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+
+th {text-align:left;border:0;vertical-align: bottom;font-weight:bold;}
+tr {margin:0;}
+td, th {margin:0; padding:3px 10px 3px 10px;}
+
+
+th.number, td.number {text-align:right;}
+
+table caption {text-align: left;}
+
+/* Iframe */
+iframe {border:0;}
+
+/* Flex */
+.flex div *:first-child {margin-top:0;}
+.flex {font-size:0.85em;}
+.flex h1,
+.flex h2,
+.flex h3,
+.flex h4,
+.flex p {width:100%;padding:0;}
+.flex p {font-size:0.85em;}
+.flex .element img {width:100%;height:auto;}
+
+.flex {display:flex;flex-wrap: wrap;}
+.flex > * {max-width:100%;padding-right:1rem;margin-bottom:2rem;}
+
+/* Hack for responsive image size */
+.image-container {max-width:100%;width:100%;position: relative;background:#eee;overflow:hidden;}
+.image-container img {position: absolute;width: 100%;}
+
+/* Body settings */
+/* Width */
+@media (max-width: 500px) {
+    body {
+        margin:0;
+        margin-top:2em;
+        margin-bottom:3em;
+    }
+}
+@media(min-width: 500px) {
+    body {
+        margin:0;
+        margin-top:4em;
+        margin-bottom:4em;
+    }
+}

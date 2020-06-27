@@ -1,0 +1,28 @@
+@font-face {
+	/* Symbol codes here: http://drinchev.github.io/monosocialiconsfont/ */
+    font-family: 'Mono Social Icons Font';
+    src: url('monosocialiconsfont/MonoSocialIconsFont-1.10.eot');
+    src: url('monosocialiconsfont/MonoSocialIconsFont-1.10.eot?#iefix') format('embedded-opentype'),
+         url('monosocialiconsfont/MonoSocialIconsFont-1.10.woff') format('woff'),
+         url('monosocialiconsfont/MonoSocialIconsFont-1.10.ttf') format('truetype'),
+         url('monosocialiconsfont/MonoSocialIconsFont-1.10.svg#MonoSocialIconsFont') format('svg');
+    src: url('monosocialiconsfont/MonoSocialIconsFont-1.10.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.symbol, a.symbol:before {
+    font-family: 'Mono Social Icons Font';
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+
+	font-size:40px;
+}

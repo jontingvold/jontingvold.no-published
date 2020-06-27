@@ -1,0 +1,135 @@
+/* FONTS
+@import "fonts/Gill Sans/gillsans.css?v=1.0.0";
+@import "fonts/Minion Pro/minionpro.css?v=1.0.0";
+*/
+
+
+:root {
+  --serif-font: 'Minion Pro', 'Times', serif;
+  --sans-serif-font: 'Gill Sans', sans-serif;
+  --monospace-font: 'Courier', 'Courier New', monospace;
+  
+  --active-color: rgb(20,50,170);
+}
+
+
+body {
+    font-family: var(--serif-font);
+    font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+.kicker,
+kicker {
+    /* color: rgb(20,50,170); */
+    color: #666;
+}
+
+a {
+    color: var(--active-color);
+    text-decoration: none;
+}
+a:hover {border-bottom:1px dotted #aaa;}
+
+/* Sans serif */
+#toc, .kicker, kicker, h3, h4, h5, h6, figcaption {
+    font-family: var(--sans-serif-font);
+    font-feature-settings: "kern, onum";
+}
+
+.kicker, kicker, h1 {font-weight: 500;}
+
+/* Monospace */
+pre, code {
+    font-family: var(--monospace-font);
+    font-size: 0.88em;
+}
+
+/* Typography color, weight and style */
+@media (min-width: 400px), print {
+    @supports (hyphens: auto) or 
+        (-webkit-hyphens: auto) or
+        (-moz-hyphens: auto) or
+        (-ms-hyphens: auto) {
+    	main p, main figcaption, main ol, main ul {
+            text-align:justify; /* Needs lang attribute on parent element to work. */
+            
+            hyphens: auto;
+            -webkit-hyphens: auto; /* Only Safari, not Chrome. */
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+    }
+}
+
+.kicker, kicker, h1, h2, h3, h4, h5, h6, big, small, div {
+    text-align: left;
+}
+
+.kicker,
+kicker {font-size: 0.9rem;line-height:1.3rem;}
+
+/* Article headline */ h1 {
+}
+
+/* Section headline */ h2 {
+    font-size:1.5rem;
+    line-height:1.3em;
+    margin-top:2.6rem; margin-bottom: 1.3rem;
+    font-weight: 500;
+}
+@media screen and (max-width: 500px) { h2 {font-size: 1.4rem;} } 
+
+/* Subsection headline */ h3 {
+    font-size:0.9rem;
+    line-height:1.3rem;
+    margin-top:1.95rem; margin-bottom: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    font-weight: 500;
+}
+@media screen and (max-width: 500px) { h3 {font-size:0.85rem;margin-bottom: 0.65rem;} } 
+
+/* Over-paragraph headline */ h4 {
+    font-size:1.0rem;
+    line-height:1.3rem;
+    margin-top:1.3rem; margin-bottom: 0.65rem;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+}
+@media screen and (max-width: 500px) { h4 {font-size:0.95rem;margin-top: 0.65rem; } } 
+h3+h4 {margin-top:1.3rem;}
+
+h3+ul, h3+ol,
+h4+ul, h4+ol
+{margin-top:0rem;}
+
+h2+p, h3+p, h4+p {margin-top:0 !important;}
+
+/* Paragraph headline */ h5 {
+}
+
+/* Subparagraph headline */ h6 {
+    color: #666;
+}
+
+h5, h6 {
+    /* On same line */
+    float: left;
+    padding-right: 1rem !important;
+    font-size: 0.95rem;
+    line-height: 1.117rem;
+    font-weight: 500;
+}
+
+h5::after, h6::after {
+  content: ".";
+}
+
+h5, h5+p, h6, h6+p {margin-top: 1.3rem !important;}
+
+.lead,
+.big,
+big {
+    font-size: 1.15rem;line-height:1.6rem;
+    font-style: italic;
+}

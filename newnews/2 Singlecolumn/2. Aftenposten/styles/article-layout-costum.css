@@ -1,0 +1,41 @@
+.advertisement figcaption {text-align:right;font:0.7em "PT Sans", "Helvetica Neue", Arial, sans-serif;}
+
+/* SOCIAL BOX */
+.socialbox a:hover {text-decoration:none;color:rgb(98, 168, 238);}
+.socialbox {font-size:40px;}
+.socialbox .count {position:relative;top:-10px;left:-21px;font:8px "PT Sans", "Helvetica Neue", Arial, sans-serif;font-weight:800;text-align:center;color:#fff;}
+/* SOCIAL BOX */
+
+.symbol {
+    color: #e3120b;
+}
+
+.symbol {
+    font-family: 'Mono Social Icons Font';
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    font-size: 40px;
+}
+
+.symbol {
+    margin-top:1rem;
+}
+
+.article-container {
+    padding-top:60px;
+}
+
+h1 + figure,
+h2 + figure,
+h2 + .boxed
+{
+    margin-top:0;
+}

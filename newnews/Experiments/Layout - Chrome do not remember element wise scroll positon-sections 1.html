@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>jQuery StackingSlides Plugin Demo</title>
+<meta id="viewport" name="viewport" content ="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style type="text/css" media="screen">
+body {
+    height:100vh;
+    overflow-y:none; /* Prevent minimal-ui in iOS Safari*/
+	-webkit-scroll-snap-type: mandatory;
+    -ms-scroll-snap-type: mandatory;
+	scroll-snap-type: mandatory;
+	margin:0;padding:0;
+}
+
+body {
+    -ms-scroll-snap-points-x: repeat(100vw);
+    -webkit-scroll-snap-points-x: repeat(100vw);
+   scroll-snap-points-x: repeat(100vw);
+}
+
+.section {
+    width:100vw;
+}
+
+@media (min-width: 600px) {
+    body {
+        -ms-scroll-snap-points-x: repeat(90vw);
+        -webkit-scroll-snap-points-x: repeat(90vw);
+	   scroll-snap-points-x: repeat(90vw);
+    }
+
+    .section {
+        width:90vw;
+    }
+    
+    .section:last-child {
+        width:100vw;
+    }
+}
+
+
+.container {
+	margin:0;padding:0;
+	width:1000000px;
+}
+
+.section {
+    box-sizing: border-box;
+	padding:20px;
+    margin:0;
+	height:100vh;
+	overflow:scroll;
+    -webkit-overflow-scrolling: touch; /* Adds momentom scrolling on overflow scroll elements. */
+	float:left;
+}
+
+.article {
+	float:left;
+}
+
+.article a {
+	display:block;
+    box-sizing: border-box;
+	background-color:#e0efef;
+	width:240px;
+	height:240px;
+	margin:0 10px 10px 0;
+	padding:20px;
+	text-decoration:none;
+	font-weight:bold;
+	color:#111;
+}
+</style>
+<script>
+var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+var is_safari = navigator.userAgent.indexOf("Safari") > -1 && !is_chrome;
+if (is_safari) {
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload() 
+        }
+    };
+}
+</script>
+</head>
+<body>
+<div class="container">
+<div class="section" id="section1">
+<div class="sectioncontainer">
+<h2>Section</h2>
+<div>
+	<p><strong>Problems with this layout</strong></p>
+	<ol>
+		<li>Chrome will not not remember overflow scroll position (e.g. when navigating back) - Solution: Javascript Store element.scrollTop position using sessionStorage.</li>
+		<li>Chrome does not support scrolling snapping - Coming.</li>
+		<li>No browser supports anchor linking to sections. (Can be done with JS and Chrome will remember vertical scroll position.)</li>
+        <li>Mac Safari 9.3 have a bug so overflow scroll is locked/does not work when navigating back. (Hacky solution: Rerender page / Disable Bfcache.). <a href="http://stackoverflow.com/questions/34556881/overflow-y-scroll-not-working-when-going-back-to-the-page-in-safari-9">See the Stack Overflow Issue.</a></li>
+        <li>iOS Mac hide 100vh content behind bottom toolbar because it will consider the viewport height without addressbar and bottom toolbar.</li>
+	</ol>
+	<p><i>The web site was not tested in Internet Explorer. IE11+ supports scroll snapping.</i></p>
+</div>
+<div class="flex">
+<div class="article"><a style="padding:0;" href="http://www.nytimes.com/2016/01/25/world/middleeast/china-deepens-its-footprint-in-iran-after-lifting-of-sanctions.html"><div style="width:240px;height:240px;padding:20px;box-sizing: border-box;background-image:url('images/china.jpg');background-size: cover;color:#fff;vertical-align:bottom;display:table-cell;">China Deppens Its Footprint in Iran After Lifting of Sactions</div></a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/asia/china-considers-larger-role-in-afghanistan-peace-process.html">China consider Larger Role in Afghanistan Peace Process</a></div>
+
+<div class="article">
+	<a href="http://www.nytimes.com/2016/01/26/business/international/airbus-iran-aircraft-talks.html">Airbus to Start Talks With Iran About Buying New Jets</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/technology/europes-top-digital-privacy-watchdog-zeros-in-on-us-tech-giants.html">Europe's Top Digital-Privacy Watchdog Zeros In on U.S. Tech Gians</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/europe/italy-divided-over-effort-to-legalize-civil-unions-for-gays.html">Italy Devided Over Effort to Legalize Civil Unions for Gays</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/isis-video-paris-attacks.html">ISIS Video Appears to Show Paris Assailants Earlier in Syria and Iraq</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/china-deepens-its-footprint-in-iran-after-lifting-of-sanctions.html">China Deppens Its Footprint in Iran After Lifting of Sactions</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/asia/china-considers-larger-role-in-afghanistan-peace-process.html">China consider Larger Role in Afghanistan Peace Process</a></div>
+
+<div class="article">
+	<a href="http://www.nytimes.com/2016/01/26/business/international/airbus-iran-aircraft-talks.html">Airbus to Start Talks With Iran About Buying New Jets</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/technology/europes-top-digital-privacy-watchdog-zeros-in-on-us-tech-giants.html">Europe's Top Digital-Privacy Watchdog Zeros In on U.S. Tech Gians</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/europe/italy-divided-over-effort-to-legalize-civil-unions-for-gays.html">Italy Devided Over Effort to Legalize Civil Unions for Gays</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/isis-video-paris-attacks.html">ISIS Video Appears to Show Paris Assailants Earlier in Syria and Iraq</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/china-deepens-its-footprint-in-iran-after-lifting-of-sanctions.html">China Deppens Its Footprint in Iran After Lifting of Sactions</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/asia/china-considers-larger-role-in-afghanistan-peace-process.html">China consider Larger Role in Afghanistan Peace Process</a></div>
+
+<div class="article">
+	<a href="http://www.nytimes.com/2016/01/26/business/international/airbus-iran-aircraft-talks.html">Airbus to Start Talks With Iran About Buying New Jets</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/technology/europes-top-digital-privacy-watchdog-zeros-in-on-us-tech-giants.html">Europe's Top Digital-Privacy Watchdog Zeros In on U.S. Tech Gians</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/europe/italy-divided-over-effort-to-legalize-civil-unions-for-gays.html">Italy Devided Over Effort to Legalize Civil Unions for Gays</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/isis-video-paris-attacks.html">ISIS Video Appears to Show Paris Assailants Earlier in Syria and Iraq</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/china-deepens-its-footprint-in-iran-after-lifting-of-sanctions.html">China Deppens Its Footprint in Iran After Lifting of Sactions</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/asia/china-considers-larger-role-in-afghanistan-peace-process.html">China consider Larger Role in Afghanistan Peace Process</a></div>
+
+<div class="article">
+	<a href="http://www.nytimes.com/2016/01/26/business/international/airbus-iran-aircraft-talks.html">Airbus to Start Talks With Iran About Buying New Jets</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/technology/europes-top-digital-privacy-watchdog-zeros-in-on-us-tech-giants.html">Europe's Top Digital-Privacy Watchdog Zeros In on U.S. Tech Gians</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/europe/italy-divided-over-effort-to-legalize-civil-unions-for-gays.html">Italy Devided Over Effort to Legalize Civil Unions for Gays</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/isis-video-paris-attacks.html">ISIS Video Appears to Show Paris Assailants Earlier in Syria and Iraq</a></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="section2">
+<div class="sectioncontainer">
+<h2>Section</h2>
+<div class="flex">
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/china-deepens-its-footprint-in-iran-after-lifting-of-sanctions.html">China Deppens Its Footprint in Iran After Lifting of Sactions</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/asia/china-considers-larger-role-in-afghanistan-peace-process.html">China consider Larger Role in Afghanistan Peace Process</a></div>
+
+<div class="article">
+	<a href="http://www.nytimes.com/2016/01/26/business/international/airbus-iran-aircraft-talks.html">Airbus to Start Talks With Iran About Buying New Jets</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/technology/europes-top-digital-privacy-watchdog-zeros-in-on-us-tech-giants.html">Europe's Top Digital-Privacy Watchdog Zeros In on U.S. Tech Gians</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/europe/italy-divided-over-effort-to-legalize-civil-unions-for-gays.html">Italy Devided Over Effort to Legalize Civil Unions for Gays</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/isis-video-paris-attacks.html">ISIS Video Appears to Show Paris Assailants Earlier in Syria and Iraq</a></div>
+</div>
+</div>
+</div>
+
+<div class="section" id="section2">
+<div class="sectioncontainer">
+<h2>Section</h2>
+<div class="flex">
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/china-deepens-its-footprint-in-iran-after-lifting-of-sanctions.html">China Deppens Its Footprint in Iran After Lifting of Sactions</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/asia/china-considers-larger-role-in-afghanistan-peace-process.html">China consider Larger Role in Afghanistan Peace Process</a></div>
+
+<div class="article">
+	<a href="http://www.nytimes.com/2016/01/26/business/international/airbus-iran-aircraft-talks.html">Airbus to Start Talks With Iran About Buying New Jets</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/technology/europes-top-digital-privacy-watchdog-zeros-in-on-us-tech-giants.html">Europe's Top Digital-Privacy Watchdog Zeros In on U.S. Tech Gians</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/europe/italy-divided-over-effort-to-legalize-civil-unions-for-gays.html">Italy Devided Over Effort to Legalize Civil Unions for Gays</a></div>
+
+<div class="article"><a href="http://www.nytimes.com/2016/01/25/world/middleeast/isis-video-paris-attacks.html">ISIS Video Appears to Show Paris Assailants Earlier in Syria and Iraq</a></div>
+</div>
+</div>
+</div>
+
+
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-9010257-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

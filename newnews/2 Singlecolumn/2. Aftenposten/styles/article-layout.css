@@ -1,0 +1,186 @@
+/* Relative image size
+    
+    Responsive preset of width and hight so images positions 
+    can render before image download start (improves performance a lot!) */
+
+.image-container {
+    max-width:100%;
+    width:100%;
+    position: relative;
+    background:#eee;
+    overflow:hidden;
+}
+.image-container img {
+    position: absolute;
+    width: 100%;
+}
+
+/* End relative image size. */
+
+
+/* LAYOUT */
+
+.article-container {
+    padding-bottom:60px;
+}
+
+.article-container figure:first-child {
+    margin-top:0;
+}
+
+/* CONTENT WIDTHS
+
+    Container/big images - 800px or 100 %
+    Paragraphs and most other elements - 600px or 100%-12px padding on each sides
+*/
+
+.article-container {width:900px;max-width:calc(100% - 50px);margin-left:70px;margin-right:auto;overflow-x:hidden;}
+
+.content-width,
+.article-container > * {width:600px;max-width:100%;margin-left:50px;box-sizing: border-box;}
+.leftbox {margin-left:0px;}
+
+.article-container h1 {width:800px;}
+
+@media(max-width: 850px) {
+    .article-container {max-width:100%;}
+    .article-container,
+    .article-container > * {margin-left:0;}
+    
+    .article-container > *,
+    figcaption {padding-left:12px;padding-right:12px;}
+    
+    .full-width,
+    .article-container > figure {
+        padding-left:0;padding-right:0;
+    }
+}
+
+/* E.g. "full width" images */
+.full-width,
+figcaption {width:800px;max-width:100%;margin-left:0px;margin-right:auto;box-sizing: border-box;}
+
+figcaption {padding-top:1em;}
+
+@media(min-width: 830px) {
+    .full-width figcaption {margin-left:50px;}
+}
+
+/* END CONTENT WIDTHS */
+
+/* LEFT, RIGHT FLOATING ELEMENTS */
+
+.leftbox,
+.rightbox,
+.centerbox,
+.rightbigbox {width:100%;}
+
+@media(min-width: 600px), print and (min-width: 10mm) {
+	.leftbox {width:400px;}
+	.rightbox {width:400px;}
+	.centerbox {width:400px;}
+
+	.leftbox {float:left; margin-right:2em;} 
+    .leftbox figcaption {padding-right:0;}
+    
+	.rightbox {float:right; margin-left:2em;} 
+    .rightbox figcaption {padding-left:0;}
+    
+	figcaption {max-width:600px;}
+}
+
+@media(min-width: 700px), print and (min-width: 10mm) {
+    .rightbigbox {float:right; margin-left:2em;} 
+    .rightbigbox figcaption {padding-left:0;}
+    .rightbigbox {width:400px;}
+}
+
+@media(min-width: 800px), print and (min-width: 10mm) {
+    .rightbigbox {float:right; margin-left:2em;} 
+    .rightbigbox figcaption {padding-left:0;}
+    .rightbigbox {width:550px;}
+}
+
+figcaption {width:100%;}
+
+@media print {
+    /* 50% of the page if A4 */
+    .leftbox {width:85mm;max-width: 100%;}
+	.rightbox {width:85mm;max-width: 100%;}
+    .rightbigbox  {width:110mm;max-width: 100%;}
+	.centerbox {width:85mm;max-width: 100%;}
+}
+
+/* END LEFT, RIGHT FLOATING ELEMENTS */
+
+/* FLEX */
+
+.flex {font-size:0.80em;line-height:1.4em;text-align:left;}
+.flex div img {width:100%;height:auto;}
+.flex > figure {width:390px;max-width:100%;}
+.flex > figure {margin:0 5px 10px 5px;}
+.elements-pr-row-2 > figure {width:380px;max-width:100%;}
+.elements-pr-row-3 > figure {width:256px;max-width:100%;}
+.elements-pr-row-4 > figure {width:190px;max-width:100%;}
+.elements-pr-row-5 > figure {width:150px;max-width:100%;}
+.flex > div {width:390px;max-width:100%;}
+.flex > div {margin:0 10px 20px 10px;}
+.elements-pr-row-2 > div {width:370px;max-width:100%;}
+.elements-pr-row-3 > div {width:246px;max-width:100%;}
+.elements-pr-row-4 > div {width:180px;max-width:100%;}
+.elements-pr-row-5 > div {width:140px;max-width:100%;}
+.flex {margin-bottom:1em;}
+
+.flex {display:flex;justify-content:center;flex-flow: row wrap;}
+
+@media print {
+    .flex figure {width:70mm;max-width:100%;}
+    .flex > figure {width:82mm;max-width:100%;}
+    .flex > figure {margin:0 1mm 2mm 1mm;}
+    .elements-pr-row-2 > figure {width:82mm;max-width:100%;}
+    .elements-pr-row-3 > figure {width:54mm;max-width:100%;}
+    .elements-pr-row-4 > figure {width:40mm;max-width:100%;}
+    .elements-pr-row-5 > figure {width:31mm;max-width:100%;}
+    .flex > div {width:80mm;max-width:100%;}
+    .flex > div {margin:0 2mm 4mm 2mm;}
+    .elements-pr-row-2 > div {width:80mm;max-width:100%;}
+    .elements-pr-row-3 > div {width:52mm;max-width:100%;}
+    .elements-pr-row-4 > div {width:38mm;max-width:100%;}
+    .elements-pr-row-5 > div {width:29mm;max-width:100%;}
+}
+
+/* END FLEX */
+
+/* FIGURE */
+figure img {width:100%;height:auto;}
+/* END FIGURE  */
+
+/* TABLE */
+table {
+	margin-left:auto;margin-right:auto;overflow:auto;
+	border-collapse: collapse;
+	font-size:0.85em;
+    max-width:100%;
+    overflow-x:scroll;
+}
+
+tr {margin:0;}
+td, th {border-bottom: 1px dotted #dedede; margin:0; padding:3px 10px;min-width:100px;}
+th {text-align:left;border:0;border-bottom:2px solid #dedede;vertical-align: bottom;}
+tbody tr:hover {background:#fafafa;}
+
+td.number {
+	text-align:left;
+}
+
+/* END TABLE */
+
+/* BOXED */
+
+.boxed { 
+    background-color: #fff; 
+    border-top: 3px solid #ddd; 
+    border-bottom: 1px solid #ddd;
+    padding:1em 0;
+}
+/* END BOXED */

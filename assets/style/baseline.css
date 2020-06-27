@@ -1,0 +1,542 @@
+/*
+
+BASELINE (DEFAULT STYLESHEET FOR ALL STYLES)
+
+ - sets margins and background on body and container
+ - sets default style for typography
+
+*/
+
+:root {
+  --serif-font: 'Minion Pro', 'Times', serif;
+  --sans-serif-font: 'Gill Sans', sans-serif;
+  --monospace-font: 'Courier', 'Courier New', monospace;
+  
+  --active-color: rgb(20,50,170);
+  
+  --font-size: 19px;
+  --line-height: 1.3em;
+  --content-width: 730px;
+}
+
+@media screen and (max-width: 500px) {
+  :root {
+    --font-size: 19px;
+  }
+}
+
+@media print {
+  :root {
+    /* 1pt = 1.33px; 10pt = 13px */
+    --font-size: 10pt;
+    --line-height: 1.2em;
+  }
+}
+
+/* MARGIN AND BACKGROUND ON BODY AND CONTAINER */
+html {
+  font-size: var(--font-size, 16px);
+  line-height: var(--line-height, 1.3em);
+  
+  /* FIX ANTIALISING ON CHROME MAC */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen {
+  body {
+    margin:0;
+  	background: #fff;
+    /* background: rgb(235, 237, 240); */
+    /* Under 850px it is only visable in iOS/MacOS when bounces off screen. */
+  }
+
+  .container {
+	  background: #fff;
+    /* box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 3px 0px, rgba(0, 0, 0, 0.188235) 0px 4px 6px 0px;*/
+    margin:0 auto;
+	  box-sizing: border-box;
+    width: var(--content-width, 650px);
+    max-width: 100vw;
+  }
+}
+
+/* BODY MARGINS TO PAGE */
+/*
+@media screen and (min-width: 900px) { body {margin: 18px 0 36px 0;} } 
+@media screen and (max-width: 900px) { body {margin: 0;} }
+*/
+
+:root {
+  --article-margin-top: 2.6rem;
+  --article-margin-bottom: 5.2rem;
+  --text-margin: 2.6rem;
+  --paragraph-indent: 2rem;
+  --list-margin-left: var(--paragraph-indent);
+  --list-margin-right: var(--paragraph-indent);
+}
+
+@media screen and (max-width: 900px) {
+  :root {
+    --article-margin-top: 4.9%;
+    --article-margin-bottom: 9.7%;
+  }
+}
+
+@media screen and (min-width: 740px) and (max-width: 800px) { :root {--content-width: calc(100vw - 5.2rem); --text-margin: 2.6rem; } }
+
+@media screen and (max-width: 500px) {
+  :root {
+    --article-margin-top: 1.3rem;
+    --article-margin-bottom: 3rem;
+    --text-margin: 1.3rem;
+    --paragraph-indent: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  :root {
+    --text-margin: 0.65rem;
+    --list-margin-right: 0rem;
+  }
+}
+
+/* PAGE MARGINS */
+@media screen {
+    #pagepage                         {padding: var(--article-margin-top) 0 var(--article-margin-bottom) 0;}
+    .container > *, figure figcaption {padding-left: var(--text-margin); padding-right: var(--text-margin);}
+    .container > *, figure figcaption {margin-left:auto;margin-right:auto;}
+    .container > figure {padding-left: 0; padding-right: 0;}
+    .container > ol,
+    .container > ul {padding-left: calc(var(--text-margin) + var(--list-margin-left));padding-right: calc(var(--text-margin) + var(--list-margin-right));}
+    .container > hr {margin-left: var(--text-margin); margin-right: auto; padding-left:0; padding-right:0;}
+}
+
+@media print {
+  body, #pagepage, #edit, .container {margin: 0; padding: 0;}
+  
+  @page {
+      margin-top: 3.17cm;
+      margin-bottom: 3.17cm;
+      margin-left: 1.585cm;
+      margin-right: 1.585cm;
+  }
+  
+  @page {
+      padding: 0;
+      orphans: 2;
+      widows: 2;
+  }
+  
+  .hideprint {display:none;}
+  figure, table {width: 100% !important; float:left;}
+  
+  .container > *  {margin-left: 1.585cm; margin-right: 4.755cm;}
+  
+  .container > figure, 
+  .container > table  {box-sizing: border-box; margin-left: 0; margin-right: 0; padding-left: 1.585cm; padding-right: 4.755cm;}
+  .container > table {padding-right: 1.585cm;}
+  .container > .fullwidth {padding-right: 1.585cm;}
+  .container > .fullwidth figcaption {padding-right: 4.755cm;}
+  
+  figure, table, a {page-break-inside: avoid;}
+  ul, ol, dl  {page-break-before: avoid}
+  img, caption, h1, h2, h3, h4, h5, h6 {page-break-inside: avoid; page-break-after: avoid;}
+  
+  /* 
+  --Hack--
+  page-break-after: avoid does not seems to work in Chrome. This hack fixes it. 
+  Source: https://stackoverflow.com/questions/9238868/how-do-i-avoid-a-page-break-immediately-after-a-heading
+  */
+  img::after, caption::after, h1::after, h2::after, h3::after, h4::after, h5::after, h6::after {
+      content: "";
+      display: block;
+      height: 9.1rem;
+      margin-bottom: -9.1rem;
+  }
+}
+
+
+.container > *:first-child {margin-top:0;}
+
+.kicker strong,
+kicker strong, 
+h1 strong,
+h2 strong
+{font-weight: inherit;}
+
+/* Default style */
+
+body {
+    font-kerning: normal;
+}
+
+/* Complex block elements */
+ul, ol {
+    list-style-position: outside;
+    padding-left: 1.3rem; /* Overriden, except for print */
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
+}
+
+li {margin-bottom:0.65rem;}
+
+/* Text block elements */
+
+/* Article headline */ h1 {
+    font-size: 1.9rem;
+    line-height: 1.2;
+    margin-top: 2.6rem; margin-bottom:3.9rem;
+}
+
+/* Section headline */ h2 {
+    font-size:1rem;
+    line-height:1.3rem;
+    margin-top:0rem;margin-bottom:0rem;
+}
+
+/* Subsection headline */ h3 {
+    font-size:1rem;
+    line-height:1.3rem;
+    margin-top:0rem;margin-bottom:0rem;
+}
+
+/* Paragraph headline */ h4 {
+    font-size:1rem;
+    line-height:1.3rem;
+    margin-top:0rem;margin-bottom:0rem;
+}
+
+/* Subparagraph headline */ h5, h6 {
+    font-size:1rem;
+    line-height:1.3rem;
+    margin-top:0rem;margin-bottom:0rem;
+}
+
+.kicker + h1,
+kicker + h1 {margin-top:0;}  
+figure + h1,
+img + h1 {margin-top:0;margin-bottom:1.3rem;}   
+h1+figure {margin-top:-2.6rem;}
+
+.kicker,
+kicker {display:block; font-weight:bold; font-size:0.85rem; line-height:1.3rem;}
+.lead,
+.big {display:block; font-size:1.2rem; line-height:1.6rem;}
+.small {display:block; font-size:0.85rem; line-height:1.3rem; color:#999;}
+
+pre {font-size:0.85rem; line-height:1.3rem;}
+
+.author-date {
+    margin-bottom: 0.2rem;
+    margin-top: 0.65rem;
+    font-weight: 500;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-variant-numeric: normal;
+    font-family: Gill Sans, sans-serif;
+    letter-spacing: 0.02rem;
+    color:#666;
+    line-height:1.3rem;
+}
+
+.copyrightnotice {
+    margin-bottom: 0.65rem;
+    margin-top: 0.65rem;
+    
+    font-variant: all-small-caps;
+    font-size: 0.65rem;
+    line-height:1.3em;
+    letter-spacing: 0.02rem;
+    font-weight: 500;
+    color:#999;
+    font-variant-numeric: normal;
+    font-family: Gill Sans, sans-serif;
+}
+
+.copyrightnotice, .copyrightnotice a, .copyrightnotice a:hover {
+  font-weight: 500;
+  color:#999;
+  border: 0;
+}
+
+@media print { .hide-print {display: none;} }
+.only-print {display: none;}
+@media print { .only-print {display: block;} }
+
+.author-date + p {
+    margin-top: 0;
+}
+
+figure {
+    margin:2.6rem auto 2.6rem auto;
+    max-width: 100%;
+    width: 100%;
+}
+img {max-width:100%;}
+
+@media screen and (max-width: 500px) {figure {margin:1.3rem auto 1.3rem auto;}}
+
+figcaption {font-size:0.9rem;margin-top:0.4rem;color:#666;}
+
+/* Inline elements */
+.strong, .bold {font-weight: bold;}
+.emphasis, .italic {font-style: italic;}
+.smallcaps,
+smallcaps {font-variant: small-caps; letter-spacing: 0.02em;}
+.allsmallcaps,
+allsmallcaps {font-variant: small-caps; text-transform: lowercase; letter-spacing: 0.02em;}
+a {color:#000;text-decoration: underline;}
+
+hr {
+    width: 3.9rem;
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 2.6rem;
+    margin-bottom: 2.6rem;
+    margin-left: 0; /* Overrided */
+    margin-right: auto;  /* Overrided */
+}
+
+/* TABLE */
+
+table {
+  display: block;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
+  
+  margin-top: 1.95rem;;
+  margin-bottom: 0.65rem;
+  padding-bottom: 1.3rem;
+  line-height: 1.1rem;
+  
+  border-collapse:separate; 
+  border-spacing: 0 0;
+}
+
+@media screen and (min-width: 500px) {
+  table {min-width: 400px;}
+}
+
+table caption {
+  text-align: left;
+  font-family: var(--sans-serif-font);
+  font-size: 0.70rem;
+  line-height: 1.3rem;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-weight: 500;
+}
+
+thead tr:first-child td, thead tr:first-child th {
+  border-top:1px solid #000;
+}
+
+thead tr:last-child td, thead tr:last-child th {
+  border-bottom:1px solid #000;
+}
+
+thead th {font-weight: normal; font-variant: all-small-caps; letter-spacing: 0.02em;}
+
+tbody tr:last-child td, tbody tr:last-child th {
+  border-bottom:1px solid #000;
+}
+
+td, th {
+  padding: 6px 20px 3px 0px;
+  margin: 0;
+}
+
+tfoot td {
+  font-size: 0.8rem;
+  line-height: 1.3;
+  font-family: var(--sans-serif-font);
+  font-style: italic;
+  color: #555;
+  word-wrap: break-word;
+}
+
+/* FOOTNOTES */
+
+sup {
+  line-height: 0.9; /* Fix higher line-height than other lines. */
+}
+
+.footnotes-headline {
+  font-size: 1.2rem;
+  font-family: "Gill Sans";
+  color: #444;
+  margin-top: 2.6rem;
+  margin-bottom: 0.65rem;
+}
+
+.footnotes-headline + .footnotes ol {margin-top: 0.65rem;}
+
+.footnotes {
+  padding: 0;
+  font-size: 0.8em;
+  line-height: 1.5;
+  font-family: var(--sans-serif-font);
+  color: #666;
+}
+
+.footnotes .allsmallcaps {
+  font-weight: 600;
+}
+
+.footnotes p {
+  text-align: left;
+}
+
+.footnotes ol {list-style-position: outside;}
+
+@media screen {
+    .footnotes ol {padding-left: var(--text-margin);padding-right: var(--text-margin);}
+}  
+@media screen and (max-width: 400px) {
+    .footnotes ol {list-style-position: inside;}
+}
+@media print {
+    .footnotes ol {padding-left: 0;padding-right: 0;}
+}
+
+/* Only Mac (not even iOS) includes Lucida Grande. Most emoji/unicode characters quite ugly by default. */
+@font-face {
+  font-display: block;
+  font-family: 'Lucida Grande';
+  font-weight: 500;
+  src: url("/assets/fonts/LucidaGrande/LucidaGrande.woff2");
+}
+
+.reversefootnote {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Cambria", sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+}
+.reversefootnote:hover {border-bottom: none;}
+@media print {.reversefootnote {display: none;}}
+
+/* Divide paragraphs by indention */
+.divide-paragraphs-by-idention p {margin-top: 0; margin-bottom: 0;}
+.divide-paragraphs-by-idention p+p {text-indent: var(--paragraph-indent);}
+.divide-paragraphs-by-idention li {margin-bottom:0.325rem;}
+
+div.warning {
+  margin-top: 0.65rem;  margin-bottom: 0.65rem;
+  font-size: 0.8em;
+  line-height: 1.5;
+  font-family: var(--sans-serif-font);
+  color: #666;
+}
+
+div.warning strong {
+  color: #444;
+  font-weight: 600;
+}
+
+/* MY PAGE */
+
+body {padding:0 !important;}
+#body {display:flex;}
+#leftsidebar {width: 300px; border-right:1px solid #eee;}
+#page {flex-grow: 1;}
+#breadcrumbs {width: 100%;}
+#pagepage {width: 100%; }
+
+@media (max-width: 1000px) { #leftsidebar {display:none;} }
+@media print {
+  #breadcrumbs, #toc {display:none !important;}
+  body, #body, #leftsidebar, #page, #pagepage {margin:0 !important; padding:0 !important; display: block !important;}
+}
+
+
+/* BREADCRUMBS */
+
+#breadcrumbs {
+    padding-top: 20px;
+    font-family: var(--sans-serif-font);
+    font-size: 10px; line-height: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #666; 
+}
+#breadcrumbs .container  {
+    max-width: 100vw;
+    overflow: auto;
+    height: 42px;
+    white-space: nowrap;
+}
+
+#breadcrumbs div {
+    text-align: left;
+}
+#breadcrumbs .divider {
+    color:#999;
+}
+#breadcrumbs a {
+    color:#666; text-decoration: none;
+}
+#breadcrumbs a:hover {
+    color:#888; text-decoration: underline;border-bottom:0;
+}
+
+
+/* TABLE OF CONTENT */
+
+@media (min-width: 1000px) {
+  #toc {position:-webkit-sticky;position:sticky; top:0; font-size: 18px;}
+  #toc > .nav {padding-top:1.3em;}
+  
+  /* SAFARI INVALIDATES SCROLL POSITIONS AND BFCACHE IF INLINE SCROLLS */
+  /* #toc > .nav {height:100vh; overflow-y: scroll;} */
+  
+  /* Reset */
+  #toc a {text-decoration: none;}
+  #toc a:hover {text-decoration: none;border-bottom:0;}
+  #toc ul {list-style-type: none; margin:0; padding:0;margin-bottom: 0.5em;}
+  #toc ul li {margin:0;padding:0;}
+  
+  /* Make a default element */
+  #toc a {display: block;}
+  
+  /* Block overoll */
+  #toc a {color: #767676;}
+  #toc a:hover {color: #444;}
+  #toc .active > a {color: #444;font-weight: 600;}
+  
+  /* First level */
+  #toc > ul > li > a {padding: 0.375em 1.3em 0.375em 1.3em; font-size: 1em; line-height: 1.3;}
+  #toc > ul > .active > a {border-right:2px solid var(--active-color);}
+  
+  /* Second level */
+  #toc ul ul > li > a {padding: 0.0625em 1.3em 0.0625em 2.3em; font-size: 0.875em; line-height: 1.3;}
+  #toc ul ul > li.active > a {border-right:0.0625em solid var(--active-color);}
+  
+  /* Hide second level if not active */
+  /*
+  #toc ul ul {display:none;}
+  #toc ul .active ul {display:block;}
+  */
+}
+
+.imagecontainer {
+  max-width: 100%; position: relative; background-color: #efefef;
+}
+
+.imagecontainer img {width:100%;height:100%;position:absolute;top:0;}
+
+figure.image-drop-shadow img, 
+img.image-drop-shadow, 
+figure img {box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);}
+
+@media screen and (max-width: 750px) {
+  figure img {box-shadow: none;}
+}
+
+figure div div {margin-bottom:1rem;}

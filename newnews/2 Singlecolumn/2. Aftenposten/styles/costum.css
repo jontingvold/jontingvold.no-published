@@ -1,0 +1,16 @@
+#toolbarcontent 
+{width:920px;max-width:100%;margin-left:50px;margin-right:auto;overflow-x:hidden;}
+
+@media(max-width:970px) {
+    .articlecontainer, #toolbarcontent {
+        margin-left:0;
+        width:100%;
+    }
+}
+
+@media(min-width:970px) {
+    #readingtime {
+    left:905px;
+    right:auto;
+}
+}

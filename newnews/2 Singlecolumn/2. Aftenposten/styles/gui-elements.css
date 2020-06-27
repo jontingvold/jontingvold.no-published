@@ -1,0 +1,145 @@
+/* GENERAL GUI ELEMENTS */
+
+.button {
+  display:block-inline;
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 4px;
+  color: rgb(65, 131, 196);
+  padding: 3px 7px ;
+  border: 1px solid rgb(65, 131, 196);
+  text-decoration: none;
+  font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size:0.7em;
+  text-transform:uppercase;
+}
+
+.button:hover, .button:active {
+	text-decoration: none;
+	border:0;border: 1px solid rgb(65, 131, 196); /* Remove dotted underline. */
+	background:rgb(65, 131, 196);
+	color:#fff;
+}
+
+/* END GENERAL GUI ELEMENTS */
+
+
+/* TOOLBAR */
+
+#toolbar {
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:50;
+	
+	height:40px;
+	width:100%;
+	
+	background-color:rgba(255,255,255,0.95);
+    border-bottom:1px rgba(200,200,200,0.4) solid;
+	
+	font: 0.85em "PT Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    #toolbar {
+        background-color:rgba(255,255,255,0.70);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+}
+
+#toolbarcontent {display: flex; justify-content: space-between;}
+#toolbar-left, #toolbar-center, #toolbar-right {float:left;margin:9px 10px;}
+#toolbar-left {text-align:left;}
+#toolbar-center {text-align:center;}
+#toolbar-right {text-align:right;}
+
+@media screen and (max-width: 400px) {
+	#toolbar-center {display:none;}
+}
+
+#backbutton:before {content:"〱";font-size:20px;line-height:1.0em;font-size:serif,sans-serif;}
+#toolbar-left {display:table;}
+#backbutton {display:table-cell;vertical-align:top;padding-left:5px;padding-top:1px;}
+#backbutton:hover {text-decoration: none;border:0;color: rgb(95, 161, 226);}
+
+#logo {}
+#toolbar-center {}
+
+#loginlink {font-size:0.65em;color: #4183C4;text-decoration: none;}
+#loginlink:hover {text-decoration: none;color: rgb(95, 161, 226);}
+
+/* END TOOLBAR */
+
+
+/* READING PROGRESS BAR */
+
+#readingprogress {
+  /* Positioning */
+  position: fixed;
+  left: 0;
+  top: 40px;
+  z-index:52;
+
+  /* Dimensions */
+  width: 100%;
+  height: 1px;
+
+  /* Reset the appearance */
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+
+  /* Get rid of the default border in Firefox/Opera. */
+  border: none;
+
+  /* Progress bar container for Firefox/IE10+ */
+  background-color: transparent;
+
+  /* Progress bar value for IE10+ */
+  color: rgb(65, 131, 196);
+}
+
+#readingprogress::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+#readingprogress::-webkit-progress-value {
+  background-color: rgb(65, 131, 196);
+}
+
+#readingprogress::-moz-progress-bar {
+  background-color: rgb(65, 131, 196);
+}
+
+/* END READING PROGRESS BAR */
+
+/* READING TIME */
+
+#readingtime {
+	position:fixed;
+	top:41px;
+	right:20px;
+	z-index:51;
+	background-color:rgba(255,255,255,0.80);
+	border:1px rgba(200,200,200,0.4) solid;
+	border-top:0;
+	width:50px;
+    
+	padding:3px;
+    font-size:11px;
+    font-weight:bold;
+    color:#444;
+	text-align:center;
+}
+
+#readingtime.hide {
+	display:none;
+}
+
+/* END READING TIME */
+
+
+/* CLASSES */
+.hide {display:none;}

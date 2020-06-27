@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Test of preloading pages</title>
+<link rel="preload" href="cached-page.php" as="document">
+<link rel="preload" href="uncached-page.php" as="document">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+
+<body>
+<h1>Check if link preloading (old subresources) work</h1>
+<p>Wait 3000 ms before clicking on the 
+	<a href="uncached-page.php">Uncached page</a> and the 
+	<a href="cached-page.php">Cached page</a>.</p>
+
+<h3>Results</h3>
+<p>Chrome: Supported, but does not seem to work.</p>
+<p>Safari: Supported, but does not seem to work.</p>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-9010257-6', 'auto');
+  ga('send', 'pageview');
+
+</script></body>
+</html>

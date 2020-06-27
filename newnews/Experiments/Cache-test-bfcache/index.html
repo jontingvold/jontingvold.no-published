@@ -1,0 +1,60 @@
+<?php
+header("Cache-Control: max-age=2592000");
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript">
+function addText(text) {
+    var ul = document.getElementById('modifyDOM');
+    var li = document.createElement('li');
+    li.appendChild(document.createTextNode(text));
+    ul.appendChild(li);
+}
+
+function callback() {
+	console.log("Callback!");
+}
+
+function modifyDOM() {
+    addText("Here is a new list item!");
+    return false;
+}
+
+function addUnload() {
+    window.onunload = callback;
+    addText("onunload handler installed");
+    return false;
+}
+
+function addBeforeUnload() {
+    window.onunload = callback;
+    addText("onbeforeunload handler installed");
+    return false;
+}
+</script>
+<title>Back/Forward Cache Test</title>
+</head>
+<body>
+
+<h1>Test of BF-cache (Back/forward cache)</h1>
+<p>Go to <a href="go-back-page.html">this page</a>, click back and see if the random changes. If BF-cache works it should. Then modify the page with adding DOM, insert unload handler and unbeforeunload handler and if the random still does not change.</p>
+<p>Random number: <span id="randomNumber"></span></p>
+<p><a href="#" onclick="modifyDOM()">Modify the DOM</a></p>
+<p><a href="#" onclick="addUnload()">Add onunload handler</a></p>
+<p><a href="#" onclick="addBeforeUnload()">Add onbeforeunload handler</a></p>
+
+<ul id="modifyDOM"></ul>
+
+<h3>Results</h3>
+<p>Safari: BF-cached works for all of these changes.</p>
+<p>Chrome: BF-cache never works. It always reloads javascript.</p>
+<p>Firefox: </p>
+<p id="skrivher"></p>
+<script>
+var randomNumberElement = document.getElementById("randomNumber");
+randomNumberElement.innerHTML = Math.random();
+</script>
+</body>
+</html>

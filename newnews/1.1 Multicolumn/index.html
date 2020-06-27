@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<title>Aftenposten: Færøyene kan bli neste selvstendige landet i Europa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="javascript/fullPage.js-master/jquery.fullPage.css" />
+<link href='//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<style>
+#toolbar {
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:50;
+	
+	height:40px;
+	width:100%;
+	
+	background-color:rgba(255,255,255,0.95);
+	border-bottom:1px rgba(200,200,200,0.4) solid;
+	padding-left:5px;
+	padding-right:42px;
+	
+	font: 0.85em "PT Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+#toolbarcontent {display: flex; justify-content: space-between;}
+#toolbar-left, #toolbar-center, #toolbar-right {float:left;margin:9px 10px}
+#toolbar-left {text-align:left;}
+#toolbar-center {text-align:center;}
+#toolbar-right {text-align:right;}
+
+@media screen and (max-width: 400px) {
+	#toolbar-center {display:none;}
+}
+
+#backbutton {display:table;}
+#backarrow {font-size:20px;line-height:1.2em;font-weight:100;}
+#backbutton-text {display:table-cell;vertical-align:top;padding-left:5px;padding-top:1px;}
+#backbutton:hover {text-decoration: none;border:0;color: rgb(95, 161, 226);}
+
+#logo {}
+	
+.button {
+  display:block-inline;
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 4px;
+  color: rgb(65, 131, 196);
+  padding: 3px 7px ;
+  border: 1px solid rgb(65, 131, 196);
+  text-decoration: none;
+  font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size:0.7em;
+  text-transform:uppercase;
+}
+
+.button:hover, .button:active {
+	text-decoration: none;
+	border:0;border: 1px solid rgb(65, 131, 196); /* Remove dotted underline. */
+	background:rgb(65, 131, 196);
+	color:#fff;
+}
+
+#loginlink {font-size:0.65em;color: #4183C4;text-decoration: none;}
+#loginlink:hover {text-decoration: none;color: rgb(95, 161, 226);}
+
+/*-------------*/
+
+#target {width:100% !important;}
+* { box-sizing: border-box }
+body { margin: 0; padding: 0; }
+#flowedContent, #fixedContent { height:0;width:0;overflow:hidden; }
+
+.cf-page {margin-top:21px;margin-left:21px;}
+.cf-fixed {overflow:hidden;}
+@media screen and (max-width: 500px) {
+	body { margin: 0 10px;}
+	.cf-page {margin-left:10px;}
+	
+	p {
+		hyphens: none;
+	    -webkit-hyphens: none;
+	    -ms-hyphens: none;
+	    -moz-hyphens: none;
+		float:left;
+	}
+}
+
+.preheadline {text-align:left;color:rgb(146, 34, 97);font-weight:bold;}
+h1, h2 { margin: 0; font-weight:100; }
+figure { margin: 0; padding: 0; }
+h1, h2, h3, h4, h5, h6 { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; margin: 21px 0 10px; padding: 0; -webkit-font-smoothing: antialiased; cursor: text; position: relative; }
+
+body { font-family: 'PT Serif', serif; color: #444; font-size: 15px; line-height: 1.4em; }
+p {margin:0;}
+p + p {text-indent:1.4em;}
+.no-ident, .byline + p { text-indent:0;}
+.byline {text-indent:0;margin-bottom:21px;font-size:0.8em;}
+.date {color:#777;}
+
+.byline + p:first-letter {float: left; color: rgb(146, 34, 97); font-size: 48px; line-height: 42px; margin-top: 0px; padding-right: 4px; font-weight:100; }
+
+p {
+    text-align:justify;
+	text-justify: inter-character; /* May be a bit slow! */
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+}
+
+ul {
+	padding:0;
+	padding-left: 17px;
+	margin: 0;
+	margin-bottom:21px;
+	list-style-type: square;
+}
+li { margin: 0; padding: 0; border: 0; }
+a { color: #4183C4; text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:active { outline: none; }
+
+h1, h2, h3, h4, h5, h6 {
+    color: #111;
+	font-weight:600;
+	hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    -moz-hyphens: none;
+}
+
+h3, h4, h5, h6 {
+    font-size:1em;
+    margin:0.7em 0 0.4em 0;
+}
+h3 {margin-bottom:0;}
+h1 {
+  font-size:2.0em;
+  line-height:1.4em;
+  margin-bottom:21px !important;
+  text-align: left;
+  font-weight:800;
+}
+
+.ingress {
+    font-size:1.1em;
+    font-style:italic;
+    text-align: left;
+    text-indent:0em;
+    color: #111;
+	margin-bottom:21px;
+	hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    -moz-hyphens: none;
+}
+
+figcaption {
+   font-size:0.85em;
+   font-style:italic;
+   color: #777;
+}
+
+.light {
+   color:#999;
+}
+
+.endsquare {
+	margin-left:3px;
+	color:rgb(65, 131, 196);
+}
+hr {
+	width:40px;
+	border:0;
+	border-bottom:1px solid #888;
+	text-align:center;
+	margin-bottom:0;
+	padding:0;
+}
+
+.symbol {color: rgb(70, 120, 170);}
+.socialbox a:hover {text-decoration:none;color:rgb(98, 168, 238);}
+.socialbox {font-size:40px;line-height:42px;text-indent:0;;margin-top:21px;text-align:center;}
+.socialbox .count {position:relative;top:-10px;left:-21px;font:8px "PT Sans", "Helvetica Neue", Arial, sans-serif;font-weight:800;text-align:center;color:#fff;}
+
+/* FACT BOX */
+.box { background-color: #fff; border-top: 3px solid #ddd; border-bottom: 1px solid #ddd;padding-top:10px;}
+.box h2 {
+	color: rgb(119, 119, 119);
+	font-weight: 100;
+	margin-top:0;
+	font-size:1em;
+	text-align:center;
+	text-transform:uppercase;
+}
+.box p, .box ul, .box ol {
+    font-size:0.95em;
+}
+</style>
+<link href='monosocialiconsfont/monosocialiconsfont.css' rel='stylesheet' type='text/css'>
+</head>
+
+
+<body>
+<div id="toolbar">
+<div id="toolbarcontent">
+<div id="toolbar-left"><a id="backbutton" href="javascript:window.history.back();"><span id="backarrow">〱</span><span id="backbutton-text">2. september 2015</span></a></div>
+<div id="toolbar-center"><span id="aftenposten"><img src="images/aftenposten-logo.2000px.png" width="77" height="21"></span></div>
+<div id="toolbar-right"><a class="button" href="subscribe.html">Abonner</a> <a id="loginlink" href="login.html">Logg inn</a></div>
+</div>
+</div>
+
+<div id="viewport">
+<div id="target">
+</div>
+</div>
+
+<div id="flowedContent" class="hyphenate">
+<p class="no-ident">Verden</p>
+<h1>Færøyene kan bli neste selvstendige landet i Europa</h1>
+<p class="ingress">Tirsdag er det lagtingsvalg på Færøyene. Det valget kan være første steg på veien til fullstendig løsrivelse fra Danmark for 49.000 innbyggere.</p>
+
+<p class="byline">Av ARILD FÆRAAS &nbsp;· &nbsp;31. august 2015 &nbsp;· &nbsp;6 min</p>
+
+<p>TORSHAVN, Færøyene — På den lille øya Nolsoy bor hundretusenvis av fugler og litt over 200 mennesker. Øya som ligger en kort båttur fra Færøyenes hovedstad, er en rolig perle for dem som vil slippe vekk fra Torshavns relative kjas og mas.</p>
+
+<p>Ved kaien holder flere menn på å slakte havhest-unger Det er sesong for å fange dem og fergekaptein Erlendur Simonsen og Jack Thomsen flår og flamberer de smaksrike fuglene.</p>
+
+<p>— Selvstendighet fra Danmark? Før var jeg mer for det, men nå er jeg ikke så sikker på at det er rett, sier kaptein Simonsen fra Torshavn.</p>
+
+<p>Kameraten, som bor på Nolsoy, er i derimot veldig klar på at Færøyene bør bli et eget land.</p>
+
+<p>— Med de rette folkene i ledelsen har jeg troen på at vi skal klare det.</p>
+
+<p>— Vi er et litt for lite land til å klare oss selv, og dessuten får vi masse penger fra Danmark, kontrer Simonsen.</p>
+
+<p>Senere samme dag, to dager før valget, er det valgdebatt på en svær og moderne skole i villa-forstaden Hoyvik.</p>
+
+<p>I tillegg til skattelette, stort budsjettunderskudd tross heftig økonomisk vekst og fiskeripolitikk er selvstendighet en av sakene politikerne fra de syv partiene snakker om.</p>
+
+<p>Zakarias Wang, kjent forfatter, akademiker og «original» som mange færinger insisterer på å kalle ham, representerer partiet Nytt selvstyre.</p>
+
+<p>Omtrent hver gang han får ordet får han salen til å skratte av noe som stort sett går Aftenposten utsendte hus forbi. Men vi skjønner at mye handler om at Færøyene skal klare å styre seg selv, uten at danskene skal råde over dem.</p>
+
+<h3>Kan bli selvstendige om seks år</h3>
+Ved siden av ham sitter «Mister selvstendighet» Hogni Høydal, leder av partiet Republikanerne.</p>
+
+<p>— Vi mener at det er realistisk å bli selvstendig og helt økonomisk uavhengig fra Danmark om seks til åtte år, om ikke før. Vi vil først vedta en egen grunnlov, og så skal vi rive oss løs på en ordentlig og planmessig måte, sier han til Aftenposten.</p>
+
+<p>— Men hvorfor skal lille Færøyene bli et helt uavhengig land?</p>
+
+<p>— Det handler om demokrati og at det færøyske folk skal ha all makt på Færøyene. Vi vil representere oss selv på alle arenaer. Vi har ikke noe mot danskene, men vil være på samme nivå som dem, sier Høydal og legger til at han slett ikke snakker om en «romantisk drøm».</p>
+
+<p>— Den færøyske selvstendighetsbevegelsen har bidratt til at vi har såpass mye indre selvstyre som vi har i dag.</p>
+
+<p>— Danmark bryter avtale fra 1450
+Wang liker å dra de lange linjene og viser til Bergenstraktaten fra 1450. Den handlet om at Danmark og Norge skal være likestilte og selvstyrte riker i en union. Wang mener at siden Færøyene da var en del av Norge, skal Færøyene være selvstyrte og på samme nivå som Danmark i dag.</p>
+
+<p>— Men slik er det ikke! Se på Irak-krigen da Danmark gikk til krig selv om Færøyene var imot. Da brøt danskene Bergen-traktaten!</p>
+
+<h3>Strid om danske kroner</h3>
+<p>I tillegg til argumentet om at Færøyene er et så lite land som kan slite med å klare seg helt selv alene, er pengestøtten fra Danmark et viktig poeng for dem som fortsatt vil være en del av det danske kongeriket.</p>
+
+<p>Men både Wang og Hoydal mener at færingene fint kan klare seg uten støtten som utgjør omtrent en milliard kroner i året.</p>
+
+<p>— Vi har hatt en kraftig økonomisk vekst de siste årene samtidig som støtten er blitt reelt mindre. Og etter den økonomiske krisen på begynnelsen av 90-tallet (hvor tusenvis forlot øyene journ.anm.) har andelen støtten utgjør av BNP falt kraftig, sier Hoydal</p>
+
+<p>Zakarias Wang sier det slik:</p>
+
+<p>— Støtten fra Danmark er det danskene betaler for å holde oss i sin makt.</p>
+
+<p>Begge er overbevist om at Færøyene kan klare seg godt økonomisk uten millionene danskene sender nordvestover.</p>
+
+<p>— Vi er ikke store nok Aksel Vilhelmsson Johannesen, partileder for Sosialdemokratene og muligens den neste statsminister på Færøyene vil ikke løsrive seg fra Danmark.</p>
+
+<p>— Vi er ikke store nok til å få ansvar for valuta-, forsvars- og utenrikspolitikk. I tillegg får vi tilskuddet fra Danmark som utgjør omtrent 15 prosent av statsbudsjettet.</p>
+
+<p>Gestur Hovgaard er førsteamanuensis i samfunnsvitenskap ved Universitetet på Færøyene. Han tror ikke at selvstendighetssaken er veldig viktig for hva folk stemmer på i dette valget.</p>
+
+<p>— Velgerne kjenner godt til hvor partiene står på den aksen. Jeg tror økonomien er det viktigste.</p>
+
+<p>— Hvor stor er sjansen for løsrivelse om det blir et klart flertall for løsrivelsespartiene?</p>
+
+<p>— Det er en mulighet. Men da må de bli enige om fiskeripolitikken som det er stor uenighet om nå.</p>
+
+<h3>Mannsdominert land</h3>
+Færøyene er et utpreget mannssamfunn. Ikke bare er det en god del flere menn enn på Færøyene (unge damer flytter gjerne til Danmark), men alle partilederne er menn, seks av syv i regjeringen er menn og over to-tredjedeler av Lagtingsmedlemmene er menn.</p>
+
+<p>Det er også påfallende hvor mye vanskeligere det er å få «kvinnen i gata» til å snakke om politikk enn «mannen i gata» i Torshavn. Hovedstaden har et moderne kafé- og natteliv, men med et samlet innbyggertall på nivå med en bydel i Oslo, er det ikke mange som ønsker å stikke seg frem.</p>
+
+<p>Etter litt overtalelse går Frida og Elisabeth (etternavn får vi ikke) med på å snakke politikk.</p>
+
+<p>Frida vil ikke slå opp med Danmark.</p>
+
+<p>— Vi er bare litt over 48.000 mennesker og det er godt å stå sammen med et større land. Jeg er også redd for hva det vil si for mulighetene til å studere i utlandet. Jeg har studert flere år i Danmark, og det er mange fag vi ikke kan studere her.</p>
+
+<p>Elisabeth mener derimot at Færøyene bør bli et land på samme nivå som Danmark og Norge.</p>
+
+<p>— Ikke med en gang, men kanskje om 10–15 år.</p>
+
+<p><h3>Russland gjør dem rike</h3>
+Men selv om det er en drøm for mange færinger å bli et eget land, er de iallfall såpass selvstendige, at som ikke-EU-medlemmer er de alene i Norden om å eksportere fisk til Russland.</p>
+
+<p>Dette har bidratt til svært gode tider på Færøyene. En økonomisk vekst på rundt 5 prosent årlig de siste fem årene har blant annet gitt seg utslag i mange flotte biler og nybygde hus i det grønne, treløse landskapet Vesterhavet.</p>
+
+<p>Kombinert med innføringen av et slags flat-skatt-system mener partiene på venstresiden at dette har ført til en stor økning i den økonomiske ulikheten. – Denne utviklingen samtidig som både statsministeren og finansministeren fra den borgerlige koalisjonen har vært involvert i skandaler, gjør at det er muligheter for til en mer venstreorientert regjering på Færøyene.</p>
+
+<p>Og selv om republikanerne og sosialdemokratene er uenige om sitt forhold til Danmark, bekreftet begge partilederne til Aftenposten at de godt kan sitte i regjering sammen om valgresultatet legger til rette for det.<span class="endsquare">&#9632;</span></p>
+
+<p class="symbol socialbox"><a href="#">&#xe027;</a> <a href="#">&#xe086;</a> <a href="#">&#xe049;<span class="count">12</span></a></p>
+</div>
+<div id="fixedContent" class="hyphenate">
+<figure class="col-span-2 anchor-top-right">
+	<img src="images-faroyene/flamber.jpg" width="1440" height="810">
+	<figcaption>Jack Thomsen (fremst) flamberer en fugl, mens kamerat Erlendur Simonsen skjærer ut hjertene på fuglene i bakgrunnen. <span class="light">FOTO: Arild Færaas</span></figcaption>
+</figure>
+
+<div class="box attach-page-2 col-span-1 anchor-top-left">
+<h2>Fakta: Færøyene</h2>
+<p>Her er noe fakta om færøyene.</p>
+<ul>
+	<li>48.881 innbyggere (per 1. juni 2015)</li>
+	<li>1399 kvadratkilometer (litt over halvparten så stort som Vestfold)</li>
+	<li>Hovedstad er Torshavn (Rundt 20.000 innbyggere i hele kommunen)</li>
+</ul>
+
+<h3>Overskrift</h3>
+<ul>
+	<li>Språk: Færøysk, men så å si alle behersker dansk/norsk</li>
+	<li>Næringsliv: Fisk er den desidert viktigste eksportvaren</li>
+	<li>Nasjonaldag: 29.juli (Olsok)</li>
+	<li>Statsoverhode: Dronning Margrethe II</li>
+	<li>Statsminister/Lagmann: Kaj Leo Johannesen (Sambandspartiet)</li>
+	<li>Klima: Milde vintre og kalde somre. Færøyene er beryktet for sitt skiftende vær.</li>
+	<li>Befolkning: Svært homogen befolkning, med liten innvandring fra andre steder enn Norden.</li>
+</ul>
+</div>
+
+<figure class="attach-page-2 col-span-1 anchor-top-col-2">
+	<img src="images-faroyene/kart.jpeg" width="1440" height="1745">
+</figure>
+
+<figure class="attach-page-3 col-span-1 anchor-bottom-right">
+	<a href="http://www.eindomsmeglerguiden.no"><img src="images-faroyene/ad-eindomsmelgerguiden.no.gif" width="380" height="500"></a>
+</figure>
+
+</div>
+
+<script src="javascript/Hyphenator-5.0.0/Hyphenator.js"></script>
+<script src="javascript/FTColumnflow-changed.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="javascript/picturefill.min.js"></script>
+<script src="javascript/fullPage.js-master/jquery.fullPage.js"></script>
+<script>
+var smallScreensWidth = 500;
+var smallMargins = 10;
+var is_small_width = $(window).innerWidth() < smallScreensWidth;
+
+var windowWidthAtLoading = $(window).innerWidth();
+var windowHeightAtLoading = $(window).innerHeight()
+if (!is_small_width) {
+	var usersContentWidth = $(window).innerWidth()-74;
+} else {
+	var usersContentWidth = $(window).innerWidth()-smallMargins*2;
+}
+
+var usersContentHeight = $(window).innerHeight()-42;
+
+var webArealIpad = 1024*680;
+var minAreal = webArealIpad;
+var maxAreal = 1200*1000
+
+var minWidth = 300-14;
+var maxWidth = 1300-84;
+var minHeight = (minAreal/$(window).innerWidth())-42;
+var maxHeight = (maxAreal/$(window).innerHeight())-42;
+
+var navigation_on = $(window).innerWidth() > smallScreensWidth;
+var pagination_on = $(window).innerHeight() < maxHeight && $(window).innerHeight() > minHeight;
+
+// Align center if browser window bigger than page width.
+if ($(window).innerWidth() > maxWidth) {
+	var total_padding = usersContentWidth - maxWidth;
+	var left_padding = total_padding / 2;
+	$("#viewport").css("margin-left", left_padding + "px");
+	$("#toolbar").css("padding-left", left_padding + 21 + "px")
+	$("#toolbar").css("padding-right", left_padding + 53 + "px")
+}
+
+if (pagination_on) {
+	$("body").css("margin-top", 21 + "px");
+}
+
+var viewport_width = usersContentWidth < maxWidth ? (usersContentWidth > minWidth ? usersContentWidth : minWidth) : maxWidth;
+
+var viewport_height = usersContentHeight < maxHeight ? (usersContentHeight > minHeight ? usersContentHeight : minHeight) : maxHeight;
+
+function cfConfig() {
+ return {
+	viewportWidth: viewport_width,
+	viewportHeight: viewport_height,
+	columnWidth:           250,
+	lineHeight: 		   21,
+	standardiseLineHeight: true,
+	pagePadding:           pagination_on ? 21 : 42,
+	minFixedPadding:       0.5,
+	columnFragmentMinHeight: 42,
+	pageArrangement:       'vertical',
+	noWrapOnTags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', "figure"],
+	//showGrid: true
+}
+}
+// Needs to run before CF
+// TODO: Does not support norwegian
+Hyphenator.config({
+    minwordlength: 4
+});
+Hyphenator.run();
+
+var cf = new FTColumnflow('target', 'viewport', cfConfig());
+
+$( window ).resize(function() {
+	// This keeps Safari on iPhone/iPad from reloading the page when a user scrolls down.
+	if ( Math.abs(windowWidthAtLoading - $(window).innerWidth() ) > 20
+	   || Math.abs(windowHeightAtLoading - $(window).innerHeight()) > 20 ) {
+		location.reload(false);
+	}
+});
+picturefill();
+$(document).ready(function() {
+	// FTColumnflow: Do not break columns right after new headline.
+	$("h2, h3, h4, h5, h6").addClass("keepwithnext")
+	
+	cf.flow(document.getElementById('flowedContent'), document.getElementById('fixedContent'));
+	cf.reflow(cfConfig());
+	
+	$('#viewport').fullpage({
+		sectionSelector: '.cf-page-1, .cf-page-2, .cf-page-3, .cf-page-4, .cf-page-5, .cf-page-6, .cf-page-7, .cf-page-8, .cf-page-9, .cf-page-10, .cf-page-11, .cf-page-12, .cf-page-13, .cf-page-14, .cf-page-15',
+		autoScrolling: pagination_on ? true : false,
+		
+		//Does not work: fitToSection: true,
+		//Does not work: fitToSectionDelay: 1800,
+		scrollingSpeed: 600,
+		
+		//Does not work: controlArrows: true,
+		//scrollBar: true,
+		navigation: navigation_on ? true : false,
+		navigationPosition: 'right'	
+	});
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-9010257-6', 'auto');
+  ga('send', 'pageview');
+
+</script></body>
+</html>

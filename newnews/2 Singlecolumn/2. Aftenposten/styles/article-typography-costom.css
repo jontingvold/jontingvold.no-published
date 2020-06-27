@@ -1,0 +1,39 @@
+.serif,
+p {
+    font-family: 'Georgia', serif;
+}
+
+.sans-serif,
+body,
+figcaption, big, small, 
+.boxed, .boxed p { 
+    font-family: 'PF DIN Text Pro Regular';
+}
+
+h1 {font-family: 'DIN Next Slab Medium';}
+.lead {font-family: 'DIN Next Slab Medium';}
+
+.preheadline, .byline, .ingress, h1, h2 {text-align:left; }
+
+.socialbox {text-align:center;}
+hr {margin-left:auto !important;}
+
+@media(min-width:600px) {
+    hr {margin-left:calc(50% - 120px) !important;}
+}
+
+h1 {
+    margin-bottom:3rem;
+}
+
+@media(max-width: 600px) {
+    h1 {
+        margin-bottom:1rem;
+    }
+}
+
+.byline {line-height:0.9em;}
+
+body {
+    font-size:15px;
+}

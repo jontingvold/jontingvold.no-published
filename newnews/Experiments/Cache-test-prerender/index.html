@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Test of prefetching pages with link</title>
+<link rel="prerender" href="cached-page.php">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+
+<body>
+<h1>Check if link prerender work</h1>
+<p>Wait 3000 ms before clicking on the 
+	<a href="cached-page.php">Cached page</a>.</p>
+
+<h3>Results</h3>
+<p>Chrome: Supported, but hard to know if works. Does not show up in console. Seems to work sometimes. Sometimes it does not work.</p>
+<p>Safari: Not supported.</p>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-9010257-6', 'auto');
+  ga('send', 'pageview');
+
+</script></body>
+</html>
