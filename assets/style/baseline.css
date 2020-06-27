@@ -91,7 +91,8 @@ html {
   --article-margin-top: var(--root-line-height-20x, 2.6rem);
   --article-margin-bottom: var(--root-line-height-40x, 5.2rem);
   --text-margin: var(--root-line-height-20x, 2.6rem);
-  --paragraph-indent: 2rem;
+  
+  --paragraph-indent: var(--root-line-height-15x);
   --list-margin-left: var(--paragraph-indent);
   --list-margin-right: var(--paragraph-indent);
 }
