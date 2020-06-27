@@ -450,7 +450,7 @@ sup {
 div.warning {
   margin-top: var(--root-line-height-05x);  margin-bottom: var(--root-line-height-05x);
   font-size: 0.8em;
-  line-height: var(--root-line-height);
+  line-height: 1.2rem;
   font-family: var(--sans-serif-font);
   color: #666;
 }
