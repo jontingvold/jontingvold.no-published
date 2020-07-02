@@ -128,7 +128,7 @@ html {
     .container > *, figure figcaption {padding-left: var(--text-margin); padding-right: var(--text-margin);}
     .container > *, figure figcaption {margin-left:auto;margin-right:auto;}
     .container > figure {padding-left: 0; padding-right: 0;}
-    .container > ol {padding-left: calc(var(--text-margin) + var(--list-margin-left));padding-right: calc(var(--text-margin) + var(--list-margin-right));}
+    .container > ol,
     .container > ul {padding-left: calc(var(--text-margin) + var(--list-margin-left));padding-right: calc(var(--text-margin) + var(--list-margin-right));}
     .container > hr {margin-left: var(--text-margin); margin-right: auto; padding-left:0; padding-right:0;}
 }
@@ -154,6 +154,8 @@ html {
   
   .container > *  {margin-left: 1.585cm; margin-right: 4.755cm;}
   
+  .container > ol,
+  .container > ul {padding-left: 1.95rem;padding-right: 1.95rem;}
   .container > figure, 
   .container > table  {box-sizing: border-box; margin-left: 0; margin-right: 0; padding-left: 1.585cm; padding-right: 4.755cm;}
   .container > table {padding-right: 1.585cm;}
