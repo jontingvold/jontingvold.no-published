@@ -26,14 +26,25 @@ BASELINE (DEFAULT STYLESHEET FOR ALL STYLES)
   --root-line-height-20x: calc(2.0 * var(--root-line-height));
   --root-line-height-15x: calc(1.5 * var(--root-line-height));
   --root-line-height-10x: calc(1.0 * var(--root-line-height));
+  --root-line-height-075x:calc(0.75 * var(--root-line-height));
   --root-line-height-05x: calc(0.5 * var(--root-line-height));
   --root-line-height-025x: calc(0.25 * var(--root-line-height));
+  
+  --relative-line-height-40x: calc(4.0 * var(--relative-line-height));
+  --relative-line-height-30x: calc(3.0 * var(--relative-line-height));
+  --relative-line-height-25x: calc(2.5 * var(--relative-line-height));
+  --relative-line-height-20x: calc(2.0 * var(--relative-line-height));
+  --relative-line-height-15x: calc(1.5 * var(--relative-line-height));
+  --relative-line-height-10x: calc(1.0 * var(--relative-line-height));
+  --relative-line-height-075x:calc(0.75 * var(--relative-line-height));
+  --relative-line-height-05x: calc(0.5 * var(--relative-line-height));
+  --relative-line-height-025x: calc(0.25 * var(--relative-line-height));
 }
 
 @media screen and (min-device-pixel-ratio: 2),
        screen and (-webkit-min-device-pixel-ratio: 2) {
   :root {
-    --font-size: 17px;
+    --font-size: 17.5px;
     --content-width: 700px;
   }
 }
@@ -128,6 +139,8 @@ html {
     .container > *, figure figcaption {padding-left: var(--text-margin); padding-right: var(--text-margin);}
     .container > *, figure figcaption {margin-left:auto;margin-right:auto;}
     .container > figure {padding-left: 0; padding-right: 0;}
+    .container > *, figure.float-left {padding-left: var(--text-margin);}
+    .container > *, figure.float-right {padding-right: var(--text-margin);}
     .container > ol,
     .container > ul {padding-left: calc(var(--text-margin) + var(--list-margin-left));padding-right: calc(var(--text-margin) + var(--list-margin-right));}
     .container > hr {margin-left: var(--text-margin); margin-right: auto; padding-left:0; padding-right:0;}
@@ -150,9 +163,13 @@ html {
   }
   
   .hideprint {display:none;}
-  figure, table {width: 100% !important; float:left;}
+  figure, table {width: 100%; float:left;}
+  
+  .container > figure.float-left {padding-left: 1.585cm;}
+  .container > figure.float-right {padding-right: 1.585cm;}
   
   .container > *  {margin-left: 1.585cm; margin-right: 4.755cm;}
+  .container > mjx-container[jax="CHTML"][display="true"] {margin-left: 1.585cm; margin-right: 4.755cm;} /* Overrite overriding */
   
   .container > ol,
   .container > ul {padding-left: 1.95rem;padding-right: 1.95rem;}
@@ -194,22 +211,97 @@ body {
     font-kerning: normal;
 }
 
-/* Complex block elements */
+/* BLOCK ELEMENTS */
+
+/* Vertical seperation */
+
+ul, ol, 
+blockquote,
+dl,
+.highlighter-rouge {margin-top: var(--relative-line-height-10x); margin-bottom: var(--relative-line-height-10x);}
+
+ul ul, ul ol, ol ol, ol ul,
+blockquote blockquote { margin-top: 0; margin-bottom: 0; }
+
+pre { margin-top: 0; /* Default user style is 1em */ }
+
+/* Unordered and ordered lists */
+
 ul, ol {
     list-style-position: outside;
     padding-left: var(--root-line-height); /* Overriden, except for print */
-    margin-top: var(--root-line-height);
-    margin-bottom: var(--root-line-height);
 }
 
 li {margin-bottom: var(--root-line-height-05x);}
 
 ul {list-style-type: none;}
-ul li {position: relative;}
-ul li:before {
+ul > li {position: relative;}
+ul > li:before {
   content: "•";
   padding-right: 5px;
   position: absolute;top: -1px; left: -0.95rem;
+}
+
+/* Blockqoute */
+
+blockquote p {font-style: italic;}
+blockquote em, blockquote i {font-style: normal;}
+blockquote blockquote {margin: var(--root-line-height-05x) var(--paragraph-indent);}
+
+blockquote {line-height: var(--relative-line-height);}
+blockquote p {font-size: 1.10em; line-height: var(--relative-line-height);}
+blockquote blockquote {font-size: 0.95em;}
+
+blockquote footer {font-size: 0.90em;}
+blockquote footer {margin-top: var(--root-line-height-05x); margin-bottom: var(--root-line-height-05x);}
+blockquote footer {font-variant: small-caps; text-transform: lowercase; letter-spacing: 0.02em;}
+blockquote footer em, blockquote footer i  {font-variant: normal; text-transform: none; letter-spacing: 0; font-style: italic;}
+
+/* Dictionary */
+
+dt {font-variant: all-small-caps; margin-top: var(--root-line-height-05x);}
+
+/* Pre */
+
+div.highlighter-rouge { font-size: 1.0rem; }
+@media screen and (max-width: 600px) { div.highlighter-rouge { font-size: 0.90rem; } }
+@media screen and (max-width: 400px) { div.highlighter-rouge { font-size: 0.80rem; } }
+@media screen and (max-width: 350px) { div.highlighter-rouge { font-size: 0.70rem; } }
+
+pre {
+  font-size: 0.88em;
+  line-height: var(--relative-line-height);
+}
+
+@media screen {
+  pre {
+    background-color: #F7FBFD;
+    padding: var(--root-line-height-05x);
+    overflow-y: scroll;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  pre {padding: 0;margin: 0;}
+  div.highlighter-rouge {
+    background-color: #F7FBFD;
+    padding-top: var(--relative-line-height-075x);
+    padding-bottom: var(--relative-line-height-075x);
+  }
+}
+
+/* Horizontal line */
+
+hr {margin-top: var(--root-line-height-15x); margin-bottom: var(--root-line-height-15x);}
+
+hr {
+    width: 3.9rem;
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin-left: 0; /* Overrided */
+    margin-right: auto;  /* Overrided */
 }
 
 /* Text block elements */
@@ -244,19 +336,29 @@ ul li:before {
     margin-top:0rem; margin-bottom:0rem;
 }
 
+.container h1+p, .container h2+p, .container h3+p {margin-top: var(--root-line-height-05x);}
+.container h4+p {margin-top: 0;}
+
+.container h1+figure, .container h2+figure, .container h3+figure, .container h4+figure {margin-top: var(--root-line-height-10x);}
+.container h1+table, .container h2+table, .container h3+table, .container h4+table {margin-top: var(--root-line-height-10x);}
+
+.container h1+*, .container h2+*, .container h3+*, .container h4+* {margin-top: var(--root-line-height-05x);}
+
+
 .kicker + h1,
 kicker + h1 {margin-top:0;}  
 figure + h1,
 img + h1 {margin-top:0;margin-bottom:1.3rem;}   
-h1+figure {margin-top:-2.6rem;}
+h1+figure {margin-top: calc(-1.5 * var(--root-line-height));}
+
+h2+figure, h3+figure, h4+figure {margin-top: var(--root-line-height-10x);}
+h2+table, h3+table, h4+table {margin-top: var(--root-line-height-10x);}
 
 .kicker,
 kicker {display:block; font-weight:bold; font-size:0.85rem; line-height: var(--root-line-height);}
 .lead,
-.big {display:block; font-size:1.2rem; line-height:1.6rem;}
+.big {display:block; font-size:1.1rem; line-height:1.5rem; margin-top: var(--root-line-height-05x); margin-bottom: var(--root-line-height-05x);}
 .small {display:block; font-size:0.85rem; line-height: var(--root-line-height); color:#999;}
-
-pre {font-size:0.85rem; line-height: var(--root-line-height);}
 
 .author-date {
     margin-bottom: 0.2rem;
@@ -299,17 +401,6 @@ pre {font-size:0.85rem; line-height: var(--root-line-height);}
     margin-top: 0;
 }
 
-figure {
-    margin:2.6rem auto 2.6rem auto;
-    max-width: 100%;
-    width: 100%;
-}
-img {max-width:100%;}
-
-@media screen and (max-width: 500px) {figure {margin:1.3rem auto 1.3rem auto;}}
-
-figcaption {font-size:0.9rem;margin-top:0.4rem;color:#666;}
-
 /* Inline elements */
 .strong, .bold {font-weight: bold;}
 .emphasis, .italic {font-style: italic;}
@@ -319,79 +410,140 @@ smallcaps {font-variant: small-caps; letter-spacing: 0.02em;}
 allsmallcaps {font-variant: small-caps; text-transform: lowercase; letter-spacing: 0.02em;}
 a {color:#000;text-decoration: underline;}
 
-hr {
-    width: 3.9rem;
-    border: 0;
-    height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    margin-top: 2.6rem;
-    margin-bottom: 2.6rem;
-    margin-left: 0; /* Overrided */
-    margin-right: auto;  /* Overrided */
+/* FIGURE */
+
+figure {
+    margin-top: var(--text-margin);
+    margin-bottom: var(--text-margin);
 }
+
+figure {
+    max-width: 100%;
+}
+img {max-width:100%;}
+
+figcaption {font-size:0.9rem;margin-top:0.4rem;color:#666;}
+
+figcaption strong, figcaption b {font-size:0.8em;text-transform: uppercase;letter-spacing: 0.05em;font-weight: 500;}
+
+@media print, screen and (min-width: 600px) {
+
+  figure.float-left {float: left; margin-top: var(--root-line-height-10x); margin-bottom: var(--root-line-height-10x);padding-right: var(--root-line-height-10x);}
+  figure.float-right {float: right; margin-top: var(--root-line-height-10x); margin-bottom: var(--root-line-height-10x);padding-left: var(--root-line-height-10x);}
+
+  figure.float-left figcaption {padding-left: 0; padding-right: 0;}
+  figure.float-right figcaption {padding-left: 0; padding-right: 0;}
+
+}
+
+@media print, screen and (min-width: 800px) {
+  figure.float-left {padding-left: 0;}
+  figure.float-right {padding-right: 0;}
+
+}
+
+/* FIGCAPTION AND CAPTION */
+
+figcaption strong::after,
+figcaption b::after,
+caption strong::after,
+caption b::after
+{ content: "  "; }
 
 /* TABLE */
 
 table {
   display: block;
-  box-sizing: border-box;
   width: fit-content;
   max-width: 100%;
+  box-sizing: border-box;
+  
   overflow-x: scroll;
   white-space: nowrap;
   
   margin-top: var(--root-line-height-15x);
   margin-bottom: var(--root-line-height-05x);
   padding-bottom: var(--root-line-height-10x);
-  line-height: 1.1rem;
+  
+  font-size: 0.9rem;
+  line-height: 1.1;
   
   border-collapse:separate; 
   border-spacing: 0 0;
+  
+  /* font-variant-numeric: tabular-nums; */
 }
 
-@media screen and (min-width: 500px) {
-  table {min-width: 400px;}
-}
+@media screen and (max-width: 600px) { table { font-size: 0.9rem; } }
+@media screen and (max-width: 400px) { table { font-size: 0.8rem; } }
+@media screen and (max-width: 350px) { table { font-size: 0.7rem; } }
 
 table caption {
   text-align: left;
   font-family: var(--sans-serif-font);
-  font-size: 0.70rem;
+  font-size: 0.70rem !important;
   line-height: var(--root-line-height);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.3em;
   text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.05em;
   font-weight: 500;
 }
 
-thead tr:first-child td, thead tr:first-child th {
+thead tr:first-child td, th {
   border-top:1px solid #000;
 }
 
-thead tr:last-child td, thead tr:last-child th {
+thead tr:last-child td, th {
   border-bottom:1px solid #000;
 }
 
-thead th {font-weight: normal; font-variant: all-small-caps; letter-spacing: 0.02em;}
+th {font-weight: normal; font-variant: all-small-caps; letter-spacing: 0.02em;}
 
 tbody tr:last-child td, tbody tr:last-child th {
   border-bottom:1px solid #000;
 }
 
 td, th {
-  padding: 6px 20px 3px 0px;
+  padding: 5px 20px 2px 0px;
   margin: 0;
 }
 
 tfoot td {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   line-height: 1.3;
   font-family: var(--sans-serif-font);
   font-style: italic;
   color: #555;
   word-wrap: break-word;
 }
+
+.all-left td, .all-left th {text-align: left}
+.col1-left td:nth-child(1), .col1-left th:nth-child(1) {text-align: left}
+.col2-left td:nth-child(2), .col2-left th:nth-child(2) {text-align: left}
+.col3-left td:nth-child(3), .col3-left th:nth-child(3) {text-align: left}
+.col4-left td:nth-child(4), .col4-left th:nth-child(4) {text-align: left}
+.col5-left td:nth-child(5), .col5-left th:nth-child(5) {text-align: left}
+.col6-left td:nth-child(6), .col6-left th:nth-child(6) {text-align: left}
+.col7-left td:nth-child(6), .col7-left th:nth-child(7) {text-align: left}
+
+.all-center td, .all-center th {text-align: center}
+.col1-center td:nth-child(1), .col1-center th:nth-child(1) {text-align: center}
+.col2-center td:nth-child(2), .col2-center th:nth-child(2) {text-align: center}
+.col3-center td:nth-child(3), .col3-center th:nth-child(3) {text-align: center}
+.col4-center td:nth-child(4), .col4-center th:nth-child(4) {text-align: center}
+.col5-center td:nth-child(5), .col5-center th:nth-child(5) {text-align: center}
+.col6-center td:nth-child(6), .col6-center th:nth-child(6) {text-align: center}
+.col7-center td:nth-child(6), .col7-center th:nth-child(7) {text-align: center}
+
+.all-right td, .all-right th {text-align: right}
+.col1-right td:nth-child(1), .col1-right th:nth-child(1) {text-align: right}
+.col2-right td:nth-child(2), .col2-right th:nth-child(2) {text-align: right}
+.col3-right td:nth-child(3), .col3-right th:nth-child(3) {text-align: right}
+.col4-right td:nth-child(4), .col4-right th:nth-child(4) {text-align: right}
+.col5-right td:nth-child(5), .col5-right th:nth-child(5) {text-align: right}
+.col6-right td:nth-child(6), .col6-right th:nth-child(6) {text-align: right}
+.col7-right td:nth-child(6), .col7-right th:nth-child(7) {text-align: right}
+
 
 /* FOOTNOTES */
 
@@ -407,7 +559,8 @@ sup {
   margin-bottom: var(--root-line-height-05x);
 }
 
-.footnotes-headline + .footnotes ol {margin-top: var(--root-line-height-05x);}
+.footnotes {margin-top: var(--root-line-height-05x); margin-bottom: var(--root-line-height-05x);}
+.footnotes ol {margin-top: 0; margin-bottom: 0;}
 
 .footnotes {
   padding: 0;
@@ -453,9 +606,13 @@ sup {
 .reversefootnote:hover {border-bottom: none;}
 @media print {.reversefootnote {display: none;}}
 
+
 /* Divide paragraphs by indention */
+
 .divide-paragraphs-by-idention p {margin-top: 0; margin-bottom: 0;}
-.divide-paragraphs-by-idention p+p {text-indent: var(--paragraph-indent);}
+.divide-paragraphs-by-idention p+p,
+.divide-paragraphs-by-idention figure.float-left + p,
+.divide-paragraphs-by-idention figure.float-right + p {text-indent: var(--paragraph-indent);}
 .divide-paragraphs-by-idention li {margin-bottom: var(--root-line-height-025x);}
 
 div.warning {
@@ -560,14 +717,18 @@ body {padding:0 !important;}
   max-width: 100%; position: relative; background-color: #efefef;
 }
 
-.imagecontainer img {width:100%; height:100%; position:absolute;top:0;}
+.imagecontainer img {width:100%; height:100%; position:absolute; top:0; background-color: #fff;}
 
 figure.image-drop-shadow img, 
 img.image-drop-shadow, 
 figure img {box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);}
 
+.no-image-drop-shadow img,
+figure.float-left img,
+figure.float-right img {box-shadow: none;}
+
 @media print, screen and (max-width: 750px) {
   figure img {box-shadow: none;}
 }
 
-figure div div {margin-bottom: 1rem;}
+figure > div > .imagecontainer-outer {margin-bottom: var(--root-line-height-05x);}

@@ -36,6 +36,15 @@ a:hover {border-bottom:1px dotted #aaa;}
     font-feature-settings: "kern, onum";
 }
 
+/* Sans serif bold */
+figcaption strong, figcaption b,
+caption strong, caption b,
+.footnotes strong, .footnotes b {
+  font-weight: 600;
+}
+/* figcaption strong, figcaption b {color: #444;} */
+
+
 .kicker, kicker, h1 {font-weight: 500;}
 
 /* Monospace */
@@ -50,7 +59,7 @@ pre, code {
         (-webkit-hyphens: auto) or
         (-moz-hyphens: auto) or
         (-ms-hyphens: auto) {
-    	main p, main figcaption, main ol, main ul {
+    	main p, main figcaption, main ol, main ul, main blockquote {
             text-align:justify; /* Needs lang attribute on parent element to work. */
             
             hyphens: auto;
@@ -79,7 +88,7 @@ kicker {font-size: 0.9rem; line-height:var(--root-line-height);}
 /* Section headline */ h2 {
     font-size:1.5rem;
     line-height:1.3em;
-    margin-top: var(--root-line-height-15x); margin-bottom: var(--root-line-height-05x);
+    margin-top: var(--root-line-height-15x); margin-bottom: var(--root-line-height-075x);
     font-weight: 500;
 }
 @media screen and (max-width: 500px) { h2 {font-size: 1.4rem;} } 
@@ -97,19 +106,11 @@ kicker {font-size: 0.9rem; line-height:var(--root-line-height);}
 /* Over-paragraph headline */ h4 {
     font-size: 1.0rem;
     line-height: var(--root-line-height);
-    margin-top: var(--root-line-height); margin-bottom: var(--root-line-height-05x);
+    margin-top: var(--root-line-height-075x); margin-bottom: var(--root-line-height-025x);
     letter-spacing: 0.01em;
     font-weight: 500;
 }
 @media screen and (max-width: 500px) { h4 {font-size:0.95rem;} } 
-
-h3+h4 {margin-top:var(--root-line-height);}
-
-h3+ul, h3+ol,
-h4+ul, h4+ol
-{margin-top:0rem;}
-
-h2+p, h3+p, h4+p {margin-top:0 !important;}
 
 /* Paragraph headline */ h5 {
 }
@@ -121,7 +122,8 @@ h2+p, h3+p, h4+p {margin-top:0 !important;}
 h5, h6 {
     /* On same line */
     float: left;
-    padding-right: 1rem !important;
+    padding-right: var(--root-line-height-05x) !important;
+    margin-right: 0 !important; /* Reset print */
     font-size: 0.95rem;
     line-height: 1.117rem;
     font-weight: 500;
@@ -136,6 +138,6 @@ h5, h5+p, h6, h6+p {margin-top: var(--root-line-height) !important;}
 .lead,
 .big,
 big {
-    font-size: 1.15rem; line-height: 1.6rem;
+    font-size: 1.15rem; line-height: var(--relative-line-height);
     font-style: italic;
 }
