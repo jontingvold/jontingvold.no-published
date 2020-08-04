@@ -14,26 +14,26 @@
 
 
 body {
-    font-family: var(--serif-font);
-    font-variant-numeric: oldstyle-nums proportional-nums;
+  font-family: var(--serif-font);
+  font-variant-numeric: oldstyle-nums proportional-nums;
 }
 
 .kicker,
 kicker {
-    /* color: rgb(20,50,170); */
-    color: #666;
+  /* color: rgb(20,50,170); */
+  color: #666;
 }
 
 a {
-    color: var(--active-color);
-    text-decoration: none;
+  color: var(--active-color);
+  text-decoration: none;
 }
 a:hover {border-bottom:1px dotted #aaa;}
 
 /* Sans serif */
 #toc, .kicker, kicker, h3, h4, h5, h6, figcaption {
-    font-family: var(--sans-serif-font);
-    font-feature-settings: "kern, onum";
+  font-family: var(--sans-serif-font);
+  font-feature-settings: "kern, onum";
 }
 
 /* Sans serif bold */
@@ -49,66 +49,66 @@ caption strong, caption b,
 
 /* Monospace */
 pre, code {
-    font-family: var(--monospace-font);
-    font-size: 0.88em;
+  font-family: var(--monospace-font);
+  font-size: 0.88em;
 }
 
 /* Typography color, weight and style */
 @media (min-width: 400px), print {
-    @supports (hyphens: auto) or 
-        (-webkit-hyphens: auto) or
-        (-moz-hyphens: auto) or
-        (-ms-hyphens: auto) {
-    	main p, main figcaption, main ol, main ul, main blockquote {
-            text-align:justify; /* Needs lang attribute on parent element to work. */
-            
-            hyphens: auto;
-            -webkit-hyphens: auto; /* Only Safari, not Chrome. */
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-        }
+  @supports (hyphens: auto) or 
+      (-webkit-hyphens: auto) or
+      (-moz-hyphens: auto) or
+      (-ms-hyphens: auto) {
+  	main p, main figcaption, main ol, main ul, main blockquote {
+      text-align:justify; /* Needs lang attribute on parent element to work. */
+      
+      hyphens: auto;
+      -webkit-hyphens: auto; /* Only Safari, not Chrome. */
+      -moz-hyphens: auto;
+      -ms-hyphens: auto;
     }
+  }
 }
 
 .kicker, kicker, h1, h2, h3, h4, h5, h6, big, small, div {
-    text-align: left;
+  text-align: left;
 }
 
 .kicker,
 kicker {font-size: 0.9rem; line-height:var(--root-line-height);}
 
 /* Article headline */ h1 {
-    font-size: 2.0rem;
-    line-height: 1.2;
-    margin-top: var(--root-line-height-20x); margin-bottom: var(--root-line-height-25x);
+  font-size: 2.0rem;
+  line-height: 1.2;
+  margin-top: var(--root-line-height-20x); margin-bottom: var(--root-line-height-25x);
 }
 @media screen and (max-width: 500px) { h1 {} } 
 @media screen and (max-width: 400px) { h1 {font-size: 1.9rem; margin-bottom: var(--root-line-height-20x)} } 
 
 /* Section headline */ h2 {
-    font-size:1.5rem;
-    line-height:1.3em;
-    margin-top: var(--root-line-height-15x); margin-bottom: var(--root-line-height-075x);
-    font-weight: 500;
+  font-size:1.5rem;
+  line-height:1.3em;
+  margin-top: var(--root-line-height-15x); margin-bottom: var(--root-line-height-075x);
+  font-weight: 500;
 }
 @media screen and (max-width: 500px) { h2 {font-size: 1.4rem;} } 
 
 /* Subsection headline */ h3 {
-    font-size:0.9rem;
-    line-height: var(--root-line-height);
-    margin-top: var(--root-line-height-10x); margin-bottom: var(--root-line-height-05x);
-    text-transform: uppercase;
-    letter-spacing: 0.10em;
-    font-weight: 500;
+  font-size:0.9rem;
+  line-height: var(--root-line-height);
+  margin-top: var(--root-line-height-10x); margin-bottom: var(--root-line-height-05x);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  font-weight: 500;
 }
 @media screen and (max-width: 500px) { h3 {font-size:0.85rem; margin-top: var(--root-line-height);} } 
 
 /* Over-paragraph headline */ h4 {
-    font-size: 1.0rem;
-    line-height: var(--root-line-height);
-    margin-top: var(--root-line-height-075x); margin-bottom: var(--root-line-height-025x);
-    letter-spacing: 0.01em;
-    font-weight: 500;
+  font-size: 1.0rem;
+  line-height: var(--root-line-height);
+  margin-top: var(--root-line-height-075x); margin-bottom: var(--root-line-height-025x);
+  letter-spacing: 0.01em;
+  font-weight: 500;
 }
 @media screen and (max-width: 500px) { h4 {font-size:0.95rem;} } 
 
@@ -116,17 +116,17 @@ kicker {font-size: 0.9rem; line-height:var(--root-line-height);}
 }
 
 /* Subparagraph headline */ h6 {
-    color: #666;
+  color: #666;
 }
 
 h5, h6 {
-    /* On same line */
-    float: left;
-    padding-right: var(--root-line-height-05x) !important;
-    margin-right: 0 !important; /* Reset print */
-    font-size: 0.95rem;
-    line-height: 1.117rem;
-    font-weight: 500;
+  /* On same line */
+  float: left;
+  padding-right: var(--root-line-height-05x) !important;
+  margin-right: 0 !important; /* Reset print */
+  font-size: 0.95rem;
+  line-height: 1.117rem;
+  font-weight: 500;
 }
 
 h5::after, h6::after {
@@ -138,6 +138,6 @@ h5, h5+p, h6, h6+p {margin-top: var(--root-line-height) !important;}
 .lead,
 .big,
 big {
-    font-size: 1.15rem; line-height: var(--relative-line-height);
-    font-style: italic;
+  font-size: 1.15rem; line-height: var(--relative-line-height);
+  font-style: italic;
 }

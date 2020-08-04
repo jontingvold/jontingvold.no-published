@@ -135,31 +135,31 @@ html {
 
 /* PAGE MARGINS */
 @media screen {
-    #pagepage                         {padding: var(--article-margin-top) 0 var(--article-margin-bottom) 0;}
-    .container > *, figure figcaption {padding-left: var(--text-margin); padding-right: var(--text-margin);}
-    .container > *, figure figcaption {margin-left:auto;margin-right:auto;}
-    .container > figure {padding-left: 0; padding-right: 0;}
-    .container > *, figure.float-left {padding-left: var(--text-margin);}
-    .container > *, figure.float-right {padding-right: var(--text-margin);}
-    .container > ol,
-    .container > ul {padding-left: calc(var(--text-margin) + var(--list-margin-left));padding-right: calc(var(--text-margin) + var(--list-margin-right));}
-    .container > hr {margin-left: var(--text-margin); margin-right: auto; padding-left:0; padding-right:0;}
+  #pagepage                         {padding: var(--article-margin-top) 0 var(--article-margin-bottom) 0;}
+  .container > *, figure figcaption {padding-left: var(--text-margin); padding-right: var(--text-margin);}
+  .container > *, figure figcaption {margin-left:auto;margin-right:auto;}
+  .container > figure {padding-left: 0; padding-right: 0;}
+  .container > *, figure.float-left {padding-left: var(--text-margin);}
+  .container > *, figure.float-right {padding-right: var(--text-margin);}
+  .container > ol,
+  .container > ul {padding-left: calc(var(--text-margin) + var(--list-margin-left));padding-right: calc(var(--text-margin) + var(--list-margin-right));}
+  .container > hr {margin-left: var(--text-margin); margin-right: auto; padding-left:0; padding-right:0;}
 }
 
 @media print {
   body, #pagepage, #edit, .container {margin: 0; padding: 0;}
   
   @page {
-      margin-top: 3.17cm;
-      margin-bottom: 3.17cm;
-      margin-left: 1.585cm;
-      margin-right: 1.585cm;
+    margin-top: 3.17cm;
+    margin-bottom: 3.17cm;
+    margin-left: 1.585cm;
+    margin-right: 1.585cm;
   }
   
   @page {
-      padding: 0;
-      orphans: 2;
-      widows: 2;
+    padding: 0;
+    orphans: 2;
+    widows: 2;
   }
   
   .hideprint {display:none;}
@@ -189,10 +189,10 @@ html {
   Source: https://stackoverflow.com/questions/9238868/how-do-i-avoid-a-page-break-immediately-after-a-heading
   */
   img::after, caption::after, h1::after, h2::after, h3::after, h4::after, h5::after, h6::after {
-      content: "";
-      display: block;
-      height: 9.1rem;
-      margin-bottom: -9.1rem;
+    content: "";
+    display: block;
+    height: 9.1rem;
+    margin-bottom: -9.1rem;
   }
 }
 
@@ -208,7 +208,7 @@ h2 strong
 /* Default style */
 
 body {
-    font-kerning: normal;
+  font-kerning: normal;
 }
 
 /* BLOCK ELEMENTS */
@@ -228,8 +228,8 @@ pre { margin-top: 0; /* Default user style is 1em */ }
 /* Unordered and ordered lists */
 
 ul, ol {
-    list-style-position: outside;
-    padding-left: var(--root-line-height); /* Overriden, except for print */
+  list-style-position: outside;
+  padding-left: var(--root-line-height); /* Overriden, except for print */
 }
 
 li {margin-bottom: var(--root-line-height-05x);}
@@ -295,45 +295,45 @@ pre {
 hr {margin-top: var(--root-line-height-15x); margin-bottom: var(--root-line-height-15x);}
 
 hr {
-    width: 3.9rem;
-    border: 0;
-    height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    margin-left: 0; /* Overrided */
-    margin-right: auto;  /* Overrided */
+  width: 3.9rem;
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  margin-left: 0; /* Overrided */
+  margin-right: auto;  /* Overrided */
 }
 
 /* Text block elements */
 
 /* Article headline */ h1 {
-    font-size: 1.9rem;
-    line-height: 1.2;
-    margin-top: var(--root-line-height-20x); margin-bottom: var(--root-line-height-30x);
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin-top: var(--root-line-height-20x); margin-bottom: var(--root-line-height-30x);
 }
 
 /* Section headline */ h2 {
-    font-size: 1rem;
-    line-height: var(--root-line-height);
-    margin-top:0rem; margin-bottom:0rem;
+  font-size: 1rem;
+  line-height: var(--root-line-height);
+  margin-top:0rem; margin-bottom:0rem;
 }
 
 /* Subsection headline */ h3 {
-    font-size: 1rem;
-    line-height: var(--root-line-height);
-    margin-top:0rem;margin-bottom:0rem;
+  font-size: 1rem;
+  line-height: var(--root-line-height);
+  margin-top:0rem;margin-bottom:0rem;
 }
 
 /* Paragraph headline */ h4 {
-    font-size: 1rem;
-    line-height: var(--root-line-height);
-    margin-top:0rem;margin-bottom:0rem;
+  font-size: 1rem;
+  line-height: var(--root-line-height);
+  margin-top:0rem;margin-bottom:0rem;
 }
 
 /* Subparagraph headline */ h5, h6 {
-    font-size:1rem;
-    line-height: var(--root-line-height);
-    margin-top:0rem; margin-bottom:0rem;
+  font-size:1rem;
+  line-height: var(--root-line-height);
+  margin-top:0rem; margin-bottom:0rem;
 }
 
 .container h1+p, .container h2+p, .container h3+p {margin-top: var(--root-line-height-05x);}
@@ -361,36 +361,16 @@ kicker {display:block; font-weight:bold; font-size:0.85rem; line-height: var(--r
 .small {display:block; font-size:0.85rem; line-height: var(--root-line-height); color:#999;}
 
 .author-date {
-    margin-bottom: 0.2rem;
-    margin-top: var(--root-line-height-05x);
-    font-weight: 500;
-    font-size: var(--root-line-height-05x);
-    text-transform: uppercase;
-    font-variant-numeric: normal;
-    font-family: Gill Sans, sans-serif;
-    letter-spacing: 0.02rem;
-    color:#666;
-    line-height: var(--root-line-height);
-}
-
-.copyrightnotice {
-    margin-bottom: var(--root-line-height-05x);
-    margin-top: var(--root-line-height-05x);
-    
-    font-variant: all-small-caps;
-    font-size: var(--root-line-height-05x);
-    line-height: 1.3;
-    letter-spacing: 0.02rem;
-    font-weight: 500;
-    color:#999;
-    font-variant-numeric: normal;
-    font-family: Gill Sans, sans-serif;
-}
-
-.copyrightnotice, .copyrightnotice a, .copyrightnotice a:hover {
+  margin-bottom: 0.2rem;
+  margin-top: var(--root-line-height-05x);
   font-weight: 500;
-  color:#999;
-  border: 0;
+  font-size: var(--root-line-height-05x);
+  text-transform: uppercase;
+  font-variant-numeric: normal;
+  font-family: Gill Sans, sans-serif;
+  letter-spacing: 0.02rem;
+  color:#666;
+  line-height: var(--root-line-height);
 }
 
 @media print { .hide-print {display: none;} }
@@ -413,12 +393,12 @@ a {color:#000;text-decoration: underline;}
 /* FIGURE */
 
 figure {
-    margin-top: var(--text-margin);
-    margin-bottom: var(--text-margin);
+  margin-top: var(--text-margin);
+  margin-bottom: var(--text-margin);
 }
 
 figure {
-    max-width: 100%;
+  max-width: 100%;
 }
 img {max-width:100%;}
 
@@ -555,11 +535,13 @@ sup {
   font-size: 1.2rem;
   font-family: "Gill Sans";
   color: #444;
-  margin-top: var(--root-line-height-15x);
-  margin-bottom: var(--root-line-height-05x);
+  margin-top: var(--root-line-height-10x);
+  margin-bottom: var(--root-line-height-025x);
 }
 
-.footnotes {margin-top: var(--root-line-height-05x); margin-bottom: var(--root-line-height-05x);}
+.footnotes-headline + .footnotes {margin-top: var(--root-line-height-025x);}
+
+.footnotes {margin-top: var(--root-line-height-10x); margin-bottom: var(--root-line-height-10x);}
 .footnotes ol {margin-top: 0; margin-bottom: 0;}
 
 .footnotes {
@@ -581,13 +563,13 @@ sup {
 .footnotes ol {list-style-position: outside;}
 
 @media screen {
-    .footnotes ol {padding-left: var(--text-margin);padding-right: var(--text-margin);}
+  .footnotes ol {padding-left: var(--text-margin);padding-right: var(--text-margin);}
 }  
 @media screen and (max-width: 400px) {
-    .footnotes ol {list-style-position: inside;}
+  .footnotes ol {list-style-position: inside;}
 }
 @media print {
-    .footnotes ol {padding-left: 0;padding-right: 0;}
+  .footnotes ol {padding-left: 0;padding-right: 0;}
 }
 
 /* Only Mac (not even iOS) includes Lucida Grande. Most emoji/unicode characters quite ugly by default. */
@@ -605,6 +587,30 @@ sup {
 }
 .reversefootnote:hover {border-bottom: none;}
 @media print {.reversefootnote {display: none;}}
+
+
+/* COPYRIGHT NOTICE */
+
+.copyrightnotice {
+  margin-top: var(--root-line-height-05x);
+  margin-bottom: var(--root-line-height-05x);
+  
+  
+  font-variant: all-small-caps;
+  font-size: var(--root-line-height-05x);
+  line-height: 1.3;
+  letter-spacing: 0.02rem;
+  font-weight: 500;
+  color:#999;
+  font-variant-numeric: normal;
+  font-family: Gill Sans, sans-serif;
+}
+
+.copyrightnotice, .copyrightnotice a, .copyrightnotice a:hover {
+  font-weight: 500;
+  color:#999;
+  border: 0;
+}
 
 
 /* Divide paragraphs by indention */
