@@ -9,7 +9,7 @@
 <link href="https://www.jontingvold.no/"/>
 <id>https://www.jontingvold.no</id>
 
-<updated>2020-08-07T08:12:10+02:00</updated>
+<updated>2020-08-07T08:17:57+02:00</updated>
 
 <author>
     <name>Jon Tingvold</name>
@@ -843,14 +843,14 @@
   &lt;li&gt;A simple short list&lt;/li&gt;
   &lt;li&gt;With few points
     &lt;ul&gt;
-      &lt;li&gt;With some nnesting
+      &lt;li&gt;With some nesting
         &lt;ul&gt;
           &lt;li&gt;Nesting
             &lt;ul&gt;
               &lt;li&gt;Nesting
                 &lt;ol&gt;
                   &lt;li&gt;And ordered&lt;/li&gt;
-                  &lt;li&gt;Orderded&lt;/li&gt;
+                  &lt;li&gt;Ordered&lt;/li&gt;
                 &lt;/ol&gt;
               &lt;/li&gt;
             &lt;/ul&gt;
