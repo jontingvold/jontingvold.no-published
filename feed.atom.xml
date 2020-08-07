@@ -9,7 +9,7 @@
 <link href="https://www.jontingvold.no/"/>
 <id>https://www.jontingvold.no</id>
 
-<updated>2020-08-07T05:06:17+02:00</updated>
+<updated>2020-08-07T07:24:37+02:00</updated>
 
 <author>
     <name>Jon Tingvold</name>
@@ -960,7 +960,7 @@
 
 &lt;h3 id=&quot;math&quot;&gt;Math&lt;/h3&gt;
 
-&lt;p&gt;Inline math can be displayed like this $f(x) = x^2$. We can also write equations like the famous Einstein formula that relates energy $E$, mass $m$ and the speed of light $c$.&lt;/p&gt;
+&lt;p&gt;Inline math can be displayed like this $f(x) = x^2$. We can also write equations like the famous Einstein formula that relates energy $E$, mass $m$ and the speed of light $c$ so&lt;/p&gt;
 
 &lt;p&gt;\begin{equation}
    E = mc^2
