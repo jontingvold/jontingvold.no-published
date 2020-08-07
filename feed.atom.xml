@@ -9,7 +9,7 @@
 <link href="https://www.jontingvold.no/"/>
 <id>https://www.jontingvold.no</id>
 
-<updated>2020-08-07T04:38:01+02:00</updated>
+<updated>2020-08-07T05:06:17+02:00</updated>
 
 <author>
     <name>Jon Tingvold</name>
@@ -960,7 +960,7 @@
 
 &lt;h3 id=&quot;math&quot;&gt;Math&lt;/h3&gt;
 
-&lt;p&gt;Inline math can be displayed like this $f(x) = x^2$. We can also write equations like the famous Einstein formula that relates energy $E$, mass $m$ and the speed of light $c$. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. In&lt;/p&gt;
+&lt;p&gt;Inline math can be displayed like this $f(x) = x^2$. We can also write equations like the famous Einstein formula that relates energy $E$, mass $m$ and the speed of light $c$.&lt;/p&gt;
 
 &lt;p&gt;\begin{equation}
    E = mc^2
@@ -971,13 +971,53 @@
 
 &lt;p&gt;We can have unordered equations with&lt;/p&gt;
 
-\[\begin{aligned} 2x - 4 &amp;amp;= 6 \\ 2x &amp;amp;= 10 \\ x &amp;amp;= 5 \end{aligned}\]
+\[\begin{aligned}
+2x - 4 &amp;amp;= 6 \\
+2x &amp;amp;= 10 \\
+x &amp;amp;= 5 
+\end{aligned}\]
 
-&lt;p&gt;It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;
+&lt;p&gt;We can also try to write fractions, $\frac{1}{x^2-1}$. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;
 
 \[F(w) = \int f(x) e^{-iwt} \, dt\]
 
 &lt;p&gt;It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, $F(w) = \int f(x) e^{-iwt} \, dt$ and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;
+
+\[\left[  \frac{ N } { \left( \frac{L}{p} \right)  - (m+n) }  \right]\]
+
+&lt;p&gt;It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, $F(w) = \int f(x) e^{-iwt} \, dt$ and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;
+
+\[\begin{align*}
+x&amp;amp;=y           &amp;amp;  w &amp;amp;=z              &amp;amp;  a&amp;amp;=b+c\\
+2x&amp;amp;=-y         &amp;amp;  3w&amp;amp;=\frac{1}{2}z   &amp;amp;  a&amp;amp;=b\\
+-4 + 5x&amp;amp;=2+y   &amp;amp;  w+2&amp;amp;=-1+w          &amp;amp;  ab&amp;amp;=cb
+\end{align*}\]
+
+&lt;p&gt;Testing notation for limits&lt;/p&gt;
+
+\[\lim_{h \rightarrow 0 } \frac{f(x+h)-f(x)}{h}\]
+
+&lt;p&gt;This operator changes when used alongside 
+text $ \lim_{x \rightarrow h} (x-h) $.&lt;/p&gt;
+
+&lt;p&gt;Sum $\sum_{n=1}^{\infty} 2^{-n} = 1$ inside text. And as a block equation it looks like&lt;/p&gt;
+
+\[\sum_{n=1}^{\infty} 2^{-n} = 1\]
+
+&lt;p&gt;Product $\prod_{i=a}^{b} f(i)$ inside text. And as a block equation it looks like&lt;/p&gt;
+
+\[\prod_{i=a}^{b} f(i)\]
+
+\[\begin{align*}
+3x^2 \in R \subset Q \\
+\mathrm{3x^2 \in R \subset Q} \\
+\mathit{3x^2 \in R \subset Q} \\
+\mathbf{3x^2 \in R \subset Q} \\
+\mathsf{3x^2 \in R \subset Q} \\
+\mathtt{3x^2 \in R \subset Q} 
+\end{align*}\]
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;\mathnormal&lt;/code&gt; does not work. Same with styles like &lt;code class=&quot;highlighter-rouge&quot;&gt;\displaystyle &lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;\scriptstyle&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;blockquote&quot;&gt;Blockquote&lt;/h3&gt;
 
