@@ -9,7 +9,7 @@
 <link href="https://www.jontingvold.no/"/>
 <id>https://www.jontingvold.no</id>
 
-<updated>2020-08-07T03:47:13+02:00</updated>
+<updated>2020-08-07T04:38:01+02:00</updated>
 
 <author>
     <name>Jon Tingvold</name>
@@ -960,7 +960,7 @@
 
 &lt;h3 id=&quot;math&quot;&gt;Math&lt;/h3&gt;
 
-&lt;p&gt;Inline math can be displayed like this $f(x) = x^2$. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.&lt;/p&gt;
+&lt;p&gt;Inline math can be displayed like this $f(x) = x^2$. We can also write equations like the famous Einstein formula that relates energy $E$, mass $m$ and the speed of light $c$. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. In&lt;/p&gt;
 
 &lt;p&gt;\begin{equation}
    E = mc^2
@@ -977,7 +977,7 @@
 
 \[F(w) = \int f(x) e^{-iwt} \, dt\]
 
-&lt;p&gt;It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;
+&lt;p&gt;It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, $F(w) = \int f(x) e^{-iwt} \, dt$ and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;
 
 &lt;h3 id=&quot;blockquote&quot;&gt;Blockquote&lt;/h3&gt;
 
