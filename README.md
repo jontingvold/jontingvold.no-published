@@ -23,9 +23,7 @@ Heldigvis var det bare å endre`zoomable.min.js:1:4769` fra `position: relative`
 
 ### Zoomable image gets blurry on retina on Safari
 
-Zooming of images uses `transform: scale(1.7)`. Here there are a bug in Safari which leads to images being rendered with non-retina resolution. Works fine in Chrome.
-
-**Delevis løst tror jeg med `data-original=""`**
+Zooming of images uses `transform: scale(1.7)`. Here there are a bug in Safari which leads to images being rendered with non-retina resolution. Works quite good in Chrome, although still not as sharp as normal images.
 
 ### Table of content not scrollable if longer than screen height
 
