@@ -1,0 +1,36 @@
+@font-face{font-family:'StyreneA';font-weight:100;src:url("StyreneA-Thin-Cy-Web.woff2");}
+/* @font-face{font-family:'StyreneA';font-weight:200;src:url("StyreneA-ExtraLight-Cy-Web.woff2");} */
+@font-face{font-family:'StyreneA';font-weight:300;src:url("StyreneA-Light-Cy-Web.woff2");}
+@font-face{font-family:'StyreneA';font-weight:400;src:url("StyreneA-Regular-Cy-Web.woff2");}
+@font-face{font-family:'StyreneA';font-weight:500;src:url("StyreneA-Medium-Cy-Web.woff2");}
+/* @font-face{font-family:'StyreneA';font-weight:600;src:url("StyreneA-SemiBold-Cy-Web.woff2");} */
+@font-face{font-family:'StyreneA';font-weight:700;src:url("StyreneA-Bold-Cy-Web.woff2");}
+@font-face{font-family:'StyreneA';font-weight:800;src:url("StyreneA-Black-Cy-Web.woff2");}
+
+@font-face{font-family:'StyreneA';font-weight:100;font-style:italic;src:url("StyreneA-ThinItalic-Cy-Web.woff2");}
+/* @font-face{font-family:'StyreneA';font-weight:200;font-style:italic;src:url("StyreneA-ExtraLightItalic-Cy-Web.woff2");} */
+@font-face{font-family:'StyreneA';font-weight:300;font-style:italic;src:url("StyreneA-LightItalic-Cy-Web.woff2");}
+@font-face{font-family:'StyreneA';font-weight:400;font-style:italic;src:url("StyreneA-RegularItalic-Cy-Web.woff2");}
+@font-face{font-family:'StyreneA';font-weight:500;font-style:italic;src:url("StyreneA-MediumItalic-Cy-Web.woff2");}
+/* @font-face{font-family:'StyreneA';font-weight:600;font-style:italic;src:url("StyreneA-SemiBoldItalic-Cy-Web.woff2");} */
+@font-face{font-family:'StyreneA';font-weight:700;font-style:italic;src:url("StyreneA-BoldItalic-Cy-Web.woff2");}
+@font-face{font-family:'StyreneA';font-weight:800;font-style:italic;src:url("StyreneA-BlackItalic-Cy-Web.woff2");}
+
+
+@font-face{font-family:'StyreneB';font-weight:100;src:url("StyreneB-Thin-Cy-Web.woff2");}
+/* @font-face{font-family:'StyreneB';font-weight:200;src:url("StyreneB-ExtraLight-Cy-Web.woff2");} */
+@font-face{font-family:'StyreneB';font-weight:300;src:url("StyreneB-Light-Cy-Web.woff2");}
+@font-face{font-family:'StyreneB';font-weight:400;src:url("StyreneB-Regular-Cy-Web.woff2");}
+@font-face{font-family:'StyreneB';font-weight:500;src:url("StyreneB-Medium-Cy-Web.woff2");}
+/* @font-face{font-family:'StyreneB';font-weight:600;src:url("StyreneB-SemiBold-Cy-Web.woff2");} */
+@font-face{font-family:'StyreneB';font-weight:700;src:url("StyreneB-Bold-Cy-Web.woff2");}
+@font-face{font-family:'StyreneB';font-weight:800;src:url("StyreneB-Black-Cy-Web.woff2");}
+
+@font-face{font-family:'StyreneB';font-weight:100;font-style:italic;src:url("StyreneB-ThinItalic-Cy-Web.woff2");}
+/* @font-face{font-family:'StyreneB';font-weight:200;font-style:italic;src:url("StyreneB-ExtraLightItalic-Cy-Web.woff2");} */
+@font-face{font-family:'StyreneB';font-weight:300;font-style:italic;src:url("StyreneB-LightItalic-Cy-Web.woff2");}
+@font-face{font-family:'StyreneB';font-weight:400;font-style:italic;src:url("StyreneB-RegularItalic-Cy-Web.woff2");}
+@font-face{font-family:'StyreneB';font-weight:500;font-style:italic;src:url("StyreneB-MediumItalic-Cy-Web.woff2");}
+/* @font-face{font-family:'StyreneB';font-weight:600;font-style:italic;src:url("StyreneB-SemiBoldItalic-Cy-Web.woff2");} */
+@font-face{font-family:'StyreneB';font-weight:700;font-style:italic;src:url("StyreneB-BoldItalic-Cy-Web.woff2");}
+@font-face{font-family:'StyreneB';font-weight:800;font-style:italic;src:url("StyreneB-BlackItalic-Cy-Web.woff2");}
