@@ -1,2 +1,7 @@
+User-Agent: ia_archiver
+Disallow: /
+
 User-agent: *
-sitemap: https://www.jontingvold.no/sitemap.xml
+Disallow: /assets/
+Sitemap: https://www.jontingvold.no/sitemap.xml
+
