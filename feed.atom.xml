@@ -9,7 +9,7 @@
 <link href="https://www.jontingvold.no/"/>
 <id>https://www.jontingvold.no</id>
 
-<updated>2022-02-13T02:24:28+01:00</updated>
+<updated>2022-02-13T02:38:37+01:00</updated>
 
 <author>
     <name>Jon Tingvold</name>
@@ -298,16 +298,16 @@
     <title>Three formulas</title><content type="html">&lt;figure class=&quot;zoomable image-drop-shadow&quot;&gt;
 
 &lt;div class=&quot;imagecontainer-outer&quot; style=&quot;width:1100.0px;max-width:100%;margin-left:auto;margin-right:auto;&quot;&gt;
-  &lt;div class=&quot;imagecontainer&quot; style=&quot;padding-bottom: 70.9%;&quot;&gt;
-    &lt;img class=&quot;lazyload lazyload-not-loaded&quot; src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAA5CAAAAACEgfPjAAABH0lEQVRYw+3WP0/CQBgG8LdWrE0lJSkFEkQxUTHRRDc/h7ufkJ2Nb8BiAgtEY4pViHhpas/S0uudCyEhMaD0iMv7TPcn+Q03PO8pTAGZEQqXDO6A5CCIIIIIIvhvoJAMRj3uTmSCw4HT8ha7ZJgRDIP92snt+WLvNNeBuytvu+363RHcAMD4AaB+AadKNrBzH81Xc0jwdeDqQZ/0Du2lgz65NvDngCCCCG6Qn+prMKruqX4+FRVS7DQO6Gs+Z5BS/Kmz8nR8/MWI7Zvgm+nMtH4HnoUTbWQJSspPBe3x8jnVAkdnIjZ89V1/CT5sl3sF4uVK1p/7cDv1NeUAEEMMIYVkozdcDnU5nTHNDNVi9GZdZRsB2NgIIritPuRySf4NUHNo8yNG2lAAAAAASUVORK5CYII=&quot; data-srcset=&quot;    /post-images-80px%2FEquation1.png 80w,    /post-images-730px%2FEquation1.png 730w,    /post-images-1460px%2FEquation1.png 1460w,    /post-images-2190px%2FEquation1.png 2190w,    /post-images-1080px%2FEquation1.png 1080w,    /post-images-1600px%2FEquation1.png 1600w,    /post-images-2000px%2FEquation1.png 2000w,    /post-images-2200px%2FEquation1.png 2200w,&quot; sizes=&quot;(min-width: 730px) 730px, 100vw&quot; data-original=&quot;/post-images-2200px%2FEquation1.png&quot; data-zooming-width=&quot;1600&quot; data-zooming-height=&quot;1134&quot; alt=&quot;&quot; /&gt;
+  &lt;div class=&quot;imagecontainer&quot; style=&quot;padding-bottom: 70.87%;&quot;&gt;
+    &lt;img class=&quot;lazyload lazyload-not-loaded&quot; src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAA5CAAAAACEgfPjAAABcklEQVRYw+2Wz07CQBDGv6W1QKlJ4aCCxiIJMR7Ukw/h1ZPP5hN416sRD55NtI0aJWoCgWDB8qelKW3XAx440NDqJia632lnd/LL7GxmdoiXAkuFosAWSNjiAHAgB3IgB3LgbwLHbcbAGusIrbVZqw90o33Fubvn29TdQ9/SAACBAxjE33TsKuxG3lBz+hFq5XKCCNsjUX37aDdQ11+BBw243RpeSB3vbLC9og0y+7g2L/34EQ6x2xlf0WNzat4cAoUsFIL33DJQqQBoUjkiWwGdL51SqzFdnlD69Eh16tTpQgWRwBmd0vgKYrzy82qiWWQxslkiCYYlEjCevni34cA/CRSjDky9UDIOeq4apOApg/6GZGPsVltS0CuEaVNLJ67lO1hLxZYwUXxBJuiqoZuxpfX79Eh5Kco7MstapuSntewAHu0Bk69bfSuHM7+yb/hutmrkvXFZY9EPASBIxeyJoRjPT+CVwoH/vB+GhCmPfgIRBg4WD5ur8QAAAABJRU5ErkJggg==&quot; data-srcset=&quot;    /post-images-80px%2FEquation1.png 80w,    /post-images-730px%2FEquation1.png 730w,    /post-images-1460px%2FEquation1.png 1460w,    /post-images-2190px%2FEquation1.png 2190w,    /post-images-1080px%2FEquation1.png 1080w,    /post-images-1600px%2FEquation1.png 1600w,    /post-images-2000px%2FEquation1.png 2000w,    /post-images-2200px%2FEquation1.png 2200w,&quot; sizes=&quot;(min-width: 730px) 730px, 100vw&quot; data-original=&quot;/post-images-2200px%2FEquation1.png&quot; data-zooming-width=&quot;1600&quot; data-zooming-height=&quot;1134&quot; alt=&quot;&quot; /&gt;
   &lt;/div&gt;
 &lt;/div&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;zoomable image-drop-shadow&quot;&gt;
 
 &lt;div class=&quot;imagecontainer-outer&quot; style=&quot;width:1100.0px;max-width:100%;margin-left:auto;margin-right:auto;&quot;&gt;
-  &lt;div class=&quot;imagecontainer&quot; style=&quot;padding-bottom: 70.87%;&quot;&gt;
-    &lt;img class=&quot;lazyload lazyload-not-loaded&quot; src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAA5CAAAAACEgfPjAAABcklEQVRYw+2Wz07CQBDGv6W1QKlJ4aCCxiIJMR7Ukw/h1ZPP5hN416sRD55NtI0aJWoCgWDB8qelKW3XAx440NDqJia632lnd/LL7GxmdoiXAkuFosAWSNjiAHAgB3IgB3LgbwLHbcbAGusIrbVZqw90o33Fubvn29TdQ9/SAACBAxjE33TsKuxG3lBz+hFq5XKCCNsjUX37aDdQ11+BBw243RpeSB3vbLC9og0y+7g2L/34EQ6x2xlf0WNzat4cAoUsFIL33DJQqQBoUjkiWwGdL51SqzFdnlD69Eh16tTpQgWRwBmd0vgKYrzy82qiWWQxslkiCYYlEjCevni34cA/CRSjDky9UDIOeq4apOApg/6GZGPsVltS0CuEaVNLJ67lO1hLxZYwUXxBJuiqoZuxpfX79Eh5Kco7MstapuSntewAHu0Bk69bfSuHM7+yb/hutmrkvXFZY9EPASBIxeyJoRjPT+CVwoH/vB+GhCmPfgIRBg4WD5ur8QAAAABJRU5ErkJggg==&quot; data-srcset=&quot;    /post-images-80px%2FEquation2.png 80w,    /post-images-730px%2FEquation2.png 730w,    /post-images-1460px%2FEquation2.png 1460w,    /post-images-2190px%2FEquation2.png 2190w,    /post-images-1080px%2FEquation2.png 1080w,    /post-images-1600px%2FEquation2.png 1600w,    /post-images-2000px%2FEquation2.png 2000w,    /post-images-2200px%2FEquation2.png 2200w,&quot; sizes=&quot;(min-width: 730px) 730px, 100vw&quot; data-original=&quot;/post-images-2200px%2FEquation2.png&quot; data-zooming-width=&quot;1600&quot; data-zooming-height=&quot;1134&quot; alt=&quot;&quot; /&gt;
+  &lt;div class=&quot;imagecontainer&quot; style=&quot;padding-bottom: 70.9%;&quot;&gt;
+    &lt;img class=&quot;lazyload lazyload-not-loaded&quot; src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAA5CAAAAACEgfPjAAABH0lEQVRYw+3WP0/CQBgG8LdWrE0lJSkFEkQxUTHRRDc/h7ufkJ2Nb8BiAgtEY4pViHhpas/S0uudCyEhMaD0iMv7TPcn+Q03PO8pTAGZEQqXDO6A5CCIIIIIIvhvoJAMRj3uTmSCw4HT8ha7ZJgRDIP92snt+WLvNNeBuytvu+363RHcAMD4AaB+AadKNrBzH81Xc0jwdeDqQZ/0Du2lgz65NvDngCCCCG6Qn+prMKruqX4+FRVS7DQO6Gs+Z5BS/Kmz8nR8/MWI7Zvgm+nMtH4HnoUTbWQJSspPBe3x8jnVAkdnIjZ89V1/CT5sl3sF4uVK1p/7cDv1NeUAEEMMIYVkozdcDnU5nTHNDNVi9GZdZRsB2NgIIritPuRySf4NUHNo8yNG2lAAAAAASUVORK5CYII=&quot; data-srcset=&quot;    /post-images-80px%2FEquation2.png 80w,    /post-images-730px%2FEquation2.png 730w,    /post-images-1460px%2FEquation2.png 1460w,    /post-images-2190px%2FEquation2.png 2190w,    /post-images-1080px%2FEquation2.png 1080w,    /post-images-1600px%2FEquation2.png 1600w,    /post-images-2000px%2FEquation2.png 2000w,    /post-images-2200px%2FEquation2.png 2200w,&quot; sizes=&quot;(min-width: 730px) 730px, 100vw&quot; data-original=&quot;/post-images-2200px%2FEquation2.png&quot; data-zooming-width=&quot;1600&quot; data-zooming-height=&quot;1134&quot; alt=&quot;&quot; /&gt;
   &lt;/div&gt;
 &lt;/div&gt;&lt;/figure&gt;
 
