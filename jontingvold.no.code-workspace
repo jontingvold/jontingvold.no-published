@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "name": "ROOT",
+      "path": "./"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      // Only root level recommended extensions
+      // Python and Angular extensions added in <project>/.vscode/settings.json
+      "editorconfig.editorconfig",
+      "zamerick.vscode-caddyfile-syntax",
+      "streetsidesoftware.code-spell-checker",
+      "zamerick.vscode-caddyfile-syntax",
+      "esbenp.prettier-vscode",
+      "castwide.solargraph",
+      "testdouble.vscode-standard-ruby",
+      "castwide.ruby-debug"
+    ]
+  }
+}
