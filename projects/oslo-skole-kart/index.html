@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minoritetsspråkelige elever i Oslos grunnskoler</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        .info-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            max-width: 300px;
+        }
+        .info-panel h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .legend {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .legend-gradient {
+            width: 200px;
+            height: 20px;
+            background: linear-gradient(to right, #0000FF, #FF0000);
+            border-radius: 3px;
+        }
+        .legend-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        .school-tooltip {
+            font-size: 14px;
+        }
+        .school-tooltip .name {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .school-tooltip .type {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+        .school-tooltip .percentage {
+            font-weight: bold;
+            color: #333;
+        }
+        .filter-panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .filter-panel h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .filter-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            text-align: left;
+        }
+        .filter-btn:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
+        .filter-btn.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+            font-weight: 600;
+        }
+        .filter-btn .count {
+            float: right;
+            opacity: 0.7;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <div class="filter-panel">
+        <h3>Filtrer skoler</h3>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">
+                Alle <span class="count">138</span>
+            </button>
+            <button class="filter-btn" data-filter="B">
+                Barneskoler <span class="count">-</span>
+            </button>
+            <button class="filter-btn" data-filter="U">
+                Ungdomsskoler <span class="count">-</span>
+            </button>
+            <button class="filter-btn" data-filter="BU">
+                Barne- og ungdomsskoler <span class="count">-</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <h3>Andel minoritetsspråkelige elever</h3>
+        <div class="legend">
+            <div>
+                <div class="legend-gradient"></div>
+                <div class="legend-labels">
+                    <span>0%</span>
+                    <span>50%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 15px; font-size: 12px; color: #666;">
+            Hold musepekeren over en skole for å se detaljer.
+        </p>
+    </div>
+
+    <script>
+        // Load saved settings from localStorage
+        const savedSettings = {
+            zoom: localStorage.getItem('map_zoom') ? parseInt(localStorage.getItem('map_zoom')) : 11,
+            center: localStorage.getItem('map_center') ? JSON.parse(localStorage.getItem('map_center')) : [59.9139, 10.7522],
+            filter: localStorage.getItem('map_filter') || 'all'
+        };
+
+        // Initialize the map with saved settings
+        const map = L.map('map').setView(savedSettings.center, savedSettings.zoom);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Save map position and zoom when they change
+        map.on('moveend', function() {
+            const center = map.getCenter();
+            localStorage.setItem('map_center', JSON.stringify([center.lat, center.lng]));
+        });
+
+        map.on('zoomend', function() {
+            localStorage.setItem('map_zoom', map.getZoom());
+        });
+
+        // Store all markers for filtering
+        const allMarkers = [];
+
+        // Schools data
+        const schools = [{"name": "Granstangen skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 97, "lat": 59.944111, "lon": 10.901366, "address": "Granstangen skole, Gransdalen, Granstangen, Stovner, Oslo, 1055, Norge", "color": "#f70007"}, {"name": "Haugenstua skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 93, "lat": 59.9538383, "lon": 10.9202333, "address": "Haugenstua skole, Smiuvegen, Stig, Stovner, Oslo, 0979, Norge", "color": "#ed0011"}, {"name": "Vahl skole", "type": "Barneskole", "type_code": "B", "percentage": 93, "lat": 59.916692, "lon": 10.766812, "address": "Vahl skole, Jens Bjelkes gate, Enerhaugen, Gamle Oslo, Oslo, 0561, Norge", "color": "#ed0011"}, {"name": "Furuset skole", "type": "Barneskole", "type_code": "B", "percentage": 92, "lat": 59.9392824, "lon": 10.8913777, "address": "Furuset skole, Jerikoveien, Jeriko, Alna, Oslo, 1052, Norge", "color": "#ea0014"}, {"name": "Mortensrud skole", "type": "Barneskole", "type_code": "B", "percentage": 92, "lat": 59.8473923, "lon": 10.8251317, "address": "Mortensrud skole, Mortensrudveien, Stenbråten, Søndre Nordstrand, Oslo, 1283, Norge", "color": "#ea0014"}, {"name": "Haugen skole", "type": "Barneskole", "type_code": "B", "percentage": 89, "lat": 59.9477943, "lon": 10.9052859, "address": "Haugen skole, Karistien, Nedre Høybråten, Stovner, Oslo, 1084, Norge", "color": "#e2001c"}, {"name": "Rommen skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 87, "lat": 59.9667545, "lon": 10.9141406, "address": "Rommen skole, Karen Platous vei, Nordre Rommen, Stovner, Oslo, 0988, Norge", "color": "#dd0021"}, {"name": "Bjørndal skole", "type": "Barneskole", "type_code": "B", "percentage": 86, "lat": 59.8251415, "lon": 10.8369881, "address": "Bjørndal skole, Granbergstubben, Granberg borettslag, Søndre Nordstrand, Oslo, 1275, Norge", "color": "#db0023"}, {"name": "Bjørnholt ungdomsskole", "type": "Ungdomsskole", "type_code": "U", "percentage": 84, "lat": 59.835869, "lon": 10.833681, "address": "Bjørnholt ungdomsskole, Lunhvileveien, Bjørnholt, Søndre Nordstrand, Oslo, 1270, Norge", "color": "#d60028"}, {"name": "Tokerud skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 84, "lat": 59.9659338, "lon": 10.9303839, "address": "Tokerud skole, Inga Bjørnsons vei, Jesperud, Stovner, Oslo, 0969, Norge", "color": "#d60028"}, {"name": "Lutvann skole", "type": "Barneskole", "type_code": "B", "percentage": 83, "lat": 59.9248999, "lon": 10.8701153, "address": "Lutvann skole, Dr. Dedichens vei, Nordvoll, Alna, Oslo, 0675, Norge", "color": "#d3002b"}, {"name": "Lindeberg skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 81, "lat": 59.9314545, "lon": 10.8801598, "address": "Lindeberg skole, Lindebergveien, Lindeberg, Alna, Oslo, 1069, Norge", "color": "#ce0030"}, {"name": "Linderud skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 80, "lat": 59.9405182, "lon": 10.8341715, "address": "Linderud skole, Statsråd Mathiesens vei, Linderud, Bjerke, Oslo, 0594, Norge", "color": "#cc0032"}, {"name": "Lofsrud skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 80, "lat": 59.8461238, "lon": 10.8280503, "address": "Lofsrud skole, Lofsrudveien, Lofsrud, Søndre Nordstrand, Oslo, 1281, Norge", "color": "#cc0032"}, {"name": "Haugerud skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 80, "lat": 59.9223503, "lon": 10.8595321, "address": "Haugerud skole, Dr. Dedichens vei, Nordvoll, Alna, Oslo, 0673, Norge", "color": "#cc0032"}, {"name": "Stovner skole", "type": "Barneskole", "type_code": "B", "percentage": 78, "lat": 59.9565379, "lon": 10.9269123, "address": "Stovner skole, Olaus Fjørtofts vei, Rommen, Stovner, Oslo, 0985, Norge", "color": "#c60038"}, {"name": "Nordvoll skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 78, "lat": 59.9239294, "lon": 10.8647258, "address": "Nordvoll skole, Dr. Dedichens vei, Nordvoll, Alna, Oslo, 0675, Norge", "color": "#c60038"}, {"name": "Vestli skole", "type": "Barneskole", "type_code": "B", "percentage": 77, "lat": 59.9709441, "lon": 10.9275395, "address": "Vestli skole, Ragnhild Schibbyes vei, Vestli, Stovner, Oslo, 0968, Norge", "color": "#c4003a"}, {"name": "Bjøråsen skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 77, "lat": 59.9705144, "lon": 10.9008146, "address": "Bjøråsen skole, Odvar Solbergs vei, Grorud, Oslo, 0973, Norge", "color": "#c4003a"}, {"name": "Skjønnhaug skole", "type": "Barneskole", "type_code": "B", "percentage": 76, "lat": 59.9288367, "lon": 10.8768111, "address": "Skjønnhaug skole, Lindebergåsen, Plassen, Alna, Oslo, 1068, Norge", "color": "#c1003d"}, {"name": "Groruddalen skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 76, "lat": 59.9545115, "lon": 10.8888295, "address": "Groruddalen skole, Vestbyveien, Vestby, Grorud, Oslo, 0962, Norge", "color": "#c1003d"}, {"name": "Grorud skole", "type": "Barneskole", "type_code": "B", "percentage": 75, "lat": 59.958356, "lon": 10.88285, "address": "Grorud skole, Grorudveien, Grorudhaugen, Grorud, Oslo, 0962, Norge", "color": "#bf003f"}, {"name": "Tiurleiken skole", "type": "Barneskole", "type_code": "B", "percentage": 73, "lat": 59.9625899, "lon": 10.8939848, "address": "Tiurleiken skole, Romsås Senter, Romsås, Grorud, Oslo, 0971, Norge", "color": "#ba0044"}, {"name": "Tøyen skole", "type": "Barneskole", "type_code": "B", "percentage": 73, "lat": 59.9147045, "lon": 10.7732058, "address": "Tøyen skole, Sørligata, Enerhaugen, Gamle Oslo, Oslo, 0577, Norge", "color": "#ba0044"}, {"name": "Seterbråten skole", "type": "Barneskole", "type_code": "B", "percentage": 71, "lat": 59.8310685, "lon": 10.8294371, "address": "Seterbråten skole, Bjørnåsveien, Sommero, Søndre Nordstrand, Oslo, 1270, Norge", "color": "#b50049"}, {"name": "Lusetjern skole", "type": "Barneskole", "type_code": "B", "percentage": 66, "lat": 59.8324859, "lon": 10.7898316, "address": "Lusetjern skole, Lusetjernveien, Holmlia, Søndre Nordstrand, Oslo, 1253, Norge", "color": "#a80056"}, {"name": "Holmlia skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 66, "lat": 59.8331388, "lon": 10.7907944, "address": "Holmlia skole, Nordåsveien, Holm, Søndre Nordstrand, Oslo, 1252, Norge", "color": "#a80056"}, {"name": "Ellingsrud skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 65, "lat": 59.9352013, "lon": 10.9175156, "address": "Ellingsrud skole, Edvard Munchs vei, Ellingsrud, Alna, Oslo, 1064, Norge", "color": "#a50059"}, {"name": "Apalløkka skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 64, "lat": 59.9596149, "lon": 10.86445, "address": "Apalløkka skole, Tjernveien, Alunvang, Grorud, Oslo, 0957, Norge", "color": "#a3005b"}, {"name": "Trosterud skole", "type": "Barneskole", "type_code": "B", "percentage": 64, "lat": 59.9228462, "lon": 10.8578215, "address": "Trosterud skole, Haugerudsenteret, Bakkerud, Alna, Oslo, 0673, Norge", "color": "#a3005b"}, {"name": "Møllergata skole", "type": "Barneskole", "type_code": "B", "percentage": 64, "lat": 59.9185541, "lon": 10.7501413, "address": "Møllergata skole, Deichmans gate, Hammersborg, St. Hanshaugen, Oslo, 0178, Norge", "color": "#a3005b"}, {"name": "Tveita skole", "type": "Barneskole", "type_code": "B", "percentage": 63, "lat": 59.913698, "lon": 10.838126, "address": "Tveita skole, Wilhelm Stenersens vei, Tveita, Alna, Oslo, 0669, Norge", "color": "#a0005e"}, {"name": "Prinsdal skole", "type": "Barneskole", "type_code": "B", "percentage": 62, "lat": 59.8364454, "lon": 10.8140134, "address": "Prinsdal skole, Øvre Prinsdals vei, Sandvollen, Søndre Nordstrand, Oslo, 1263, Norge", "color": "#9e0060"}, {"name": "Klemetsrud skole", "type": "Barneskole", "type_code": "B", "percentage": 61, "lat": 59.8349166, "lon": 10.844471, "address": "Klemetsrud skole, Enebakkveien, Tjernli, Søndre Nordstrand, Oslo, 1275, Norge", "color": "#9b0063"}, {"name": "Svarttjern skole", "type": "Barneskole", "type_code": "B", "percentage": 61, "lat": 59.9679989, "lon": 10.9001607, "address": "Svarttjern skole, Odvar Solbergs vei, Romsås, Grorud, Oslo, 0973, Norge", "color": "#9b0063"}, {"name": "Jeriko skole", "type": "Barneskole", "type_code": "B", "percentage": 60, "lat": 59.933752, "lon": 10.8860758, "address": "Jeriko skole, Kløfterstien, Jeriko, Alna, Oslo, 1067, Norge", "color": "#990066"}, {"name": "Veitvet skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 59, "lat": 59.9417435, "lon": 10.8543925, "address": "Veitvet skole, Veitvetveien, Holtset, Bjerke, Oslo, 0595, Norge", "color": "#960068"}, {"name": "Haukåsen skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 59, "lat": 59.9233745, "lon": 10.863445, "address": "Haukåsen skole, Dr. Dedichens vei, Nordvoll, Alna, Oslo, 0675, Norge", "color": "#960068"}, {"name": "Ellingsrudåsen skole", "type": "Barneskole", "type_code": "B", "percentage": 58, "lat": 59.9355404, "lon": 10.9208346, "address": "Ellingsrudåsen skole, Harald Sohlbergs vei, Ellingsrud, Alna, Oslo, 1064, Norge", "color": "#93006b"}, {"name": "Stenbråten skole", "type": "Barneskole", "type_code": "B", "percentage": 58, "lat": 59.8525578, "lon": 10.825315, "address": "Stenbråten skole, Gamle Bygdevei, Søndre Nordstrand, Oslo, 1284, Norge", "color": "#93006b"}, {"name": "Vetland skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 57, "lat": 59.8972554, "lon": 10.8437644, "address": "Vetland videregående skole, Vetlandsveien, Oppsal, Østensjø, Oslo, 0685, Norge", "color": "#91006d"}, {"name": "Nordtvet skole", "type": "Barneskole", "type_code": "B", "percentage": 57, "lat": 59.9515444, "lon": 10.8723504, "address": "Nordtvet skole, Gårdsveien, Nordtvet, Grorud, Oslo, 0952, Norge", "color": "#91006d"}, {"name": "Bakås skole", "type": "Barneskole", "type_code": "B", "percentage": 55, "lat": 59.937376, "lon": 10.9107874, "address": "Bakås skole, Dragonstien, Sørli, Alna, Oslo, 1063, Norge", "color": "#8c0072"}, {"name": "Rødtvet skole", "type": "Barneskole", "type_code": "B", "percentage": 55, "lat": 59.9542716, "lon": 10.8585402, "address": "Rødtvet skole, Sandåsveien, Rødtvet, Grorud, Oslo, 0955, Norge", "color": "#8c0072"}, {"name": "Gamlebyen skole", "type": "Barneskole", "type_code": "B", "percentage": 54, "lat": 59.9065777, "lon": 10.7710763, "address": "Gamlebyen skole, Klostergata, Gamlebyen, Gamle Oslo, Oslo, 0656, Norge", "color": "#890075"}, {"name": "Sofienberg skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 53, "lat": 59.922086, "lon": 10.769772, "address": "Sofienberg skole, Helgesens gate, Rodeløkka, Grünerløkka, Oslo, 0565, Norge", "color": "#870077"}, {"name": "Toppåsen skole", "type": "Barneskole", "type_code": "B", "percentage": 52, "lat": 59.8329456, "lon": 10.8000707, "address": "Toppåsen skole, Tiriltunga, Holm, Søndre Nordstrand, Oslo, 1259, Norge", "color": "#84007a"}, {"name": "Ammerud skole", "type": "Barneskole", "type_code": "B", "percentage": 52, "lat": 59.9650676, "lon": 10.8744148, "address": "Ammerud skole, Ammerudveien, Ammerud, Grorud, Oslo, 0958, Norge", "color": "#84007a"}, {"name": "Hauketo skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 51, "lat": 59.8381658, "lon": 10.81364, "address": "Hauketo skole, Øvre Prinsdals vei, Sandvollen, Søndre Nordstrand, Oslo, 1263, Norge", "color": "#82007c"}, {"name": "Lønnebakken skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 50, "lat": 59.9458532, "lon": 10.8583003, "address": "Lønnebakken skole, Bredtvetveien, Bredtvet, Bjerke, Oslo, 0950, Norge", "color": "#7f007f"}, {"name": "Skullerud skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 50, "lat": 59.8701731, "lon": 10.8486639, "address": "Skullerud skole, General Ruges vei, Rustad, Østensjø, Oslo, 0693, Norge", "color": "#7f007f"}, {"name": "Sinsen skole", "type": "Barneskole", "type_code": "B", "percentage": 50, "lat": 59.9351482, "lon": 10.7842314, "address": "Sinsen skole, Breisjåveien, Sinsen, Grünerløkka, Oslo, 0585, Norge", "color": "#7f007f"}, {"name": "Jordal skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 49, "lat": 59.908411, "lon": 10.7833698, "address": "Jordal skole, Strømsveien, Jordal, Gamle Oslo, Oslo, 0657, Norge", "color": "#7c0082"}, {"name": "Lakkegata skole", "type": "Barneskole", "type_code": "B", "percentage": 48, "lat": 59.9205432, "lon": 10.7682798, "address": "Lakkegata skole, Trondheimsveien, Sofienberg, Grünerløkka, Oslo, 0562, Norge", "color": "#7a0084"}, {"name": "Teglverket skole", "type": "Barneskole", "type_code": "B", "percentage": 45, "lat": 59.9236874, "lon": 10.7949647, "address": "Teglverket skole, barne- og ungdomsskole, Grenseveien, Teglverkstomta, Grünerløkka, Oslo, 0579, Norge", "color": "#72008c"}, {"name": "Vollebekk skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 44, "lat": 59.9373464, "lon": 10.827204, "address": "Vollebekk skole, Vollebekkveien, Vollebekk, Bjerke, Oslo, 0598, Norge", "color": "#70008e"}, {"name": "Rosenholm skole", "type": "Barneskole", "type_code": "B", "percentage": 44, "lat": 59.8289813, "lon": 10.7854303, "address": "Rosenholm skole, Nordåsveien, Åsbråten, Søndre Nordstrand, Oslo, 1251, Norge", "color": "#70008e"}, {"name": "Nøklevann skole", "type": "Barneskole", "type_code": "B", "percentage": 43, "lat": 59.8768138, "lon": 10.8490941, "address": "Nøklevann skole, Bølerskogen, Bølerskogen borettslag, Østensjø, Oslo, 0689, Norge", "color": "#6d0091"}, {"name": "Stasjonsfjellet skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 42, "lat": 59.949233, "lon": 10.928002, "address": "Stasjonsfjellet skole, Stigengbakken, Haugenstua, Stovner, Oslo, 0979, Norge", "color": "#6b0093"}, {"name": "Fyrstikkalleen skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 42, "lat": 59.9157259, "lon": 10.7958635, "address": "Fyrstikkalleen skole, Grønvoll allé, Grønvoll, Gamle Oslo, Oslo, 0661, Norge", "color": "#6b0093"}, {"name": "Frydenberg skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 41, "lat": 59.928388, "lon": 10.789637, "address": "Frydenberg skole, Frydenbergveien, Frydenberg, Grünerløkka, Oslo, 0575, Norge", "color": "#680096"}, {"name": "Bryn skole", "type": "Barneskole", "type_code": "B", "percentage": 40, "lat": 59.9144452, "lon": 10.8230093, "address": "Bryn skole, Teisenveien, Teisen, Alna, Oslo, 0664, Norge", "color": "#660099"}, {"name": "Ruseløkka skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 40, "lat": 59.9132435, "lon": 10.7254875, "address": "Ruseløkka skole, Løkkeveien, Vika, Sentrum, Oslo, 0251, Norge", "color": "#660099"}, {"name": "Løren skole", "type": "Barneskole", "type_code": "B", "percentage": 40, "lat": 59.9313577, "lon": 10.8029223, "address": "Løren skole, Dag Hammarskjölds vei, Løren, Grünerløkka, Oslo, 0586, Norge", "color": "#660099"}, {"name": "Hallagerbakken skole", "type": "Barneskole", "type_code": "B", "percentage": 40, "lat": 59.8410808, "lon": 10.7918545, "address": "Hallagerbakken skole, Hallagerbakken, Ravnåsen, Søndre Nordstrand, Oslo, 1256, Norge", "color": "#660099"}, {"name": "Rustad skole", "type": "Barneskole", "type_code": "B", "percentage": 40, "lat": 59.8714475, "lon": 10.8391353, "address": "Rustad skole, Paal Bergs vei, Langerud, Østensjø, Oslo, 1188, Norge", "color": "#660099"}, {"name": "Grünerløkka skole", "type": "Barneskole", "type_code": "B", "percentage": 39, "lat": 59.9263962, "lon": 10.7620568, "address": "Grünerløkka skole, Nissens gate, Dælenenga, Grünerløkka, Oslo, 0553, Norge", "color": "#63009b"}, {"name": "Bjølsen skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 39, "lat": 59.9397534, "lon": 10.7574078, "address": "Bjølsen skole, Grimstadgata, Sagene, Oslo, 0463, Norge", "color": "#63009b"}, {"name": "Refstad skole", "type": "Barneskole", "type_code": "B", "percentage": 38, "lat": 59.9377747, "lon": 10.8055204, "address": "Refstad skole, Økern torgvei, Refstad, Bjerke, Oslo, 0580, Norge", "color": "#60009e"}, {"name": "Sagene skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 37, "lat": 59.9312174, "lon": 10.7598896, "address": "Sagene skole, Sandakerveien, Sagene, Oslo, 0473, Norge", "color": "#5e00a0"}, {"name": "Kampen skole", "type": "Barneskole", "type_code": "B", "percentage": 36, "lat": 59.9127031, "lon": 10.7834084, "address": "Kampen skole, Elverumgata, Jordal, Gamle Oslo, Oslo, 0655, Norge", "color": "#5b00a3"}, {"name": "Brynseng skole", "type": "Barneskole", "type_code": "B", "percentage": 36, "lat": 59.9087469, "lon": 10.8110299, "address": "Brynseng skole, Etterstadkroken, Brynseng, Gamle Oslo, Oslo, 0659, Norge", "color": "#5b00a3"}, {"name": "Fernanda Nissen skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 35, "lat": 59.946972, "lon": 10.769624, "address": "Fernanda Nissen skole, Kristoffer Aamots gate, Lillo, Sagene, Oslo, 0484, Norge", "color": "#5900a5"}, {"name": "Ila skole", "type": "Barneskole", "type_code": "B", "percentage": 35, "lat": 59.9275604, "lon": 10.7456942, "address": "Ila skole, Frederik Petersens gate, Marienlyst, St. Hanshaugen, Oslo, 0173, Norge", "color": "#5900a5"}, {"name": "Majorstuen skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 35, "lat": 59.9290061, "lon": 10.7132113, "address": "Majorstuen skole, Arbos gate, Majorstuen, Frogner, Oslo, 0368, Norge", "color": "#5900a5"}, {"name": "Årvoll skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 35, "lat": 59.9443074, "lon": 10.8137623, "address": "Årvoll skole, Refstadsvingen, Årvoll, Bjerke, Oslo, 0589, Norge", "color": "#5900a5"}, {"name": "Vålerenga skole", "type": "Barneskole", "type_code": "B", "percentage": 34, "lat": 59.9070718, "lon": 10.7899231, "address": "Vålerenga skole, Hjaltlandsgata, Vålerenga, Gamle Oslo, Oslo, 0658, Norge", "color": "#5600a8"}, {"name": "Høybråten skole", "type": "Barneskole", "type_code": "B", "percentage": 32, "lat": 59.9467247, "lon": 10.9267087, "address": "Høybråten skole, Bergtunveien, Høybråten, Stovner, Oslo, 0979, Norge", "color": "#5100ad"}, {"name": "Nordpolen skole", "type": "Barneskole", "type_code": "B", "percentage": 31, "lat": 59.9399108, "lon": 10.7718683, "address": "Nordpolen skole, Hans Nielsen Hauges gate, Sandaker, Sagene, Oslo, 0482, Norge", "color": "#4f00af"}, {"name": "Sollerudstranda skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 30, "lat": 59.9135383, "lon": 10.6474109, "address": "Sollerudstranda skole, Frantzebråtveien, Frantzebråten, Ullern, Oslo, 0283, Norge", "color": "#4c00b2"}, {"name": "Fagerborg skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 29, "lat": 59.933129, "lon": 10.7299682, "address": "Fagerborg skole, Pilestredet, Adamstuen, St. Hanshaugen, Oslo, 0359, Norge", "color": "#4900b5"}, {"name": "Manglerud skole", "type": "Barneskole", "type_code": "B", "percentage": 29, "lat": 59.8945599, "lon": 10.823096, "address": "Manglerud skole, Plogveien, Manglerud, Østensjø, Oslo, 0681, Norge", "color": "#4900b5"}, {"name": "Lambertseter skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 26, "lat": 59.8716392, "lon": 10.8160687, "address": "Lambertseter skole, Glimmersvingen, Blåfjellet Borettslag, Nordstrand, Oslo, 1150, Norge", "color": "#4200bc"}, {"name": "Lilleborg skole", "type": "Barneskole", "type_code": "B", "percentage": 26, "lat": 59.9332473, "lon": 10.7648266, "address": "Lilleborg skole, Omsens gate, Torshov, Sagene, Oslo, 0474, Norge", "color": "#4200bc"}, {"name": "Tonsenhagen skole", "type": "Barneskole", "type_code": "B", "percentage": 25, "lat": 59.9463367, "lon": 10.8293339, "address": "Tonsenhagen skole, Anna Rogstads vei, Tonsenhagen, Bjerke, Oslo, 0592, Norge", "color": "#3f00bf"}, {"name": "Skøyenåsen skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 24, "lat": 59.8956171, "lon": 10.8364471, "address": "Skøyenåsen skole, Haakon Tveters vei, Oppsal, Østensjø, Oslo, 0686, Norge", "color": "#3d00c1"}, {"name": "Øraker skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 24, "lat": 59.9254876, "lon": 10.6389958, "address": "Øraker skole, Granfosstunnelen, Lilleaker, Ullern, Oslo, 0284, Norge", "color": "#3d00c1"}, {"name": "Godlia skole", "type": "Barneskole", "type_code": "B", "percentage": 24, "lat": 59.9072803, "lon": 10.8468375, "address": "Godlia skole, Vetlandsveien, Tørtberg, Østensjø, Oslo, 0671, Norge", "color": "#3d00c1"}, {"name": "Uranienborg skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 23, "lat": 59.9200769, "lon": 10.7189385, "address": "Uranienborg skole, Lallakroken, Briskeby, Frogner, Oslo, 0259, Norge", "color": "#3a00c4"}, {"name": "Marienlyst skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 22, "lat": 59.934957, "lon": 10.7229028, "address": "Marienlyst skole, Tusentrippen, Marienlyst, St. Hanshaugen, Oslo, 0361, Norge", "color": "#3800c6"}, {"name": "Bolteløkka skole", "type": "Barneskole", "type_code": "B", "percentage": 22, "lat": 59.9276451, "lon": 10.7349896, "address": "Bolteløkka skole, Sofies gate, Bolteløkka, St. Hanshaugen, Oslo, 0452, Norge", "color": "#3800c6"}, {"name": "Høyenhall skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 22, "lat": 59.8991779, "lon": 10.81295, "address": "Høyenhall skole, Adolf Hedins vei, Manglerud, Østensjø, Oslo, 0679, Norge", "color": "#3800c6"}, {"name": "Karlsrud skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 22, "lat": 59.8778455, "lon": 10.8101561, "address": "Karlsrud skole, Cecilie Thoresens vei, Karlsrud, Nordstrand, Oslo, 1153, Norge", "color": "#3800c6"}, {"name": "Kringsjå skole", "type": "Barneskole", "type_code": "B", "percentage": 22, "lat": 59.9625895, "lon": 10.7299529, "address": "Kringsjå skole, Flesåstunet, Kringsjå, Nordre Aker, Oslo, 0864, Norge", "color": "#3800c6"}, {"name": "Ullevål skole", "type": "Barneskole", "type_code": "B", "percentage": 21, "lat": 59.9422737, "lon": 10.7326186, "address": "Ullevål skole, Tiurveien, Ullevål hageby, Nordre Aker, Oslo, 0852, Norge", "color": "#3500c9"}, {"name": "Abildsø skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 20, "lat": 59.8817366, "lon": 10.8264847, "address": "Abildsø skole, Agronomveien, Abildsø, Østensjø, Oslo, 1187, Norge", "color": "#3300cc"}, {"name": "Østensjø skole", "type": "Barneskole", "type_code": "B", "percentage": 18, "lat": 59.8994586, "lon": 10.8325636, "address": "Østensjø skole, Haakon Tveters vei, Skøyenåsen, Østensjø, Oslo, 0682, Norge", "color": "#2d00d1"}, {"name": "Ljan skole", "type": "Barneskole", "type_code": "B", "percentage": 17, "lat": 59.8469668, "lon": 10.7865588, "address": "Ljan skole, Gladvollveien, Ljan, Nordstrand, Oslo, 1168, Norge", "color": "#2b00d3"}, {"name": "Nedre Bekkelaget skole", "type": "Barneskole", "type_code": "B", "percentage": 16, "lat": 59.8809596, "lon": 10.7708405, "address": "Nedre Bekkelaget skole, Skrenten, Fagerli, Nordstrand, Oslo, 1172, Norge", "color": "#2800d6"}, {"name": "Bestum skole", "type": "Barneskole", "type_code": "B", "percentage": 15, "lat": 59.9237086, "lon": 10.654051, "address": "Bestum skole, Holgerslystveien, Bestum, Ullern, Oslo, 0282, Norge", "color": "#2600d8"}, {"name": "Voksentoppen skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 15, "lat": 59.977962, "lon": 10.6636592, "address": "Voksentoppen skole, Ullveien, Vestre Aker, Oslo, 0790, Norge", "color": "#2600d8"}, {"name": "Lilleaker skole", "type": "Barneskole", "type_code": "B", "percentage": 15, "lat": 59.923186, "lon": 10.639382, "address": "Lilleaker skole, Ullernchausséen, Lilleaker, Ullern, Oslo, 0284, Norge", "color": "#2600d8"}, {"name": "Smestad skole", "type": "Barneskole", "type_code": "B", "percentage": 14, "lat": 59.9327026, "lon": 10.6826142, "address": "Smestad skole, Priorveien, Nedre Smestad, Ullern, Oslo, 0375, Norge", "color": "#2300db"}, {"name": "Voksen skole", "type": "Barneskole", "type_code": "B", "percentage": 14, "lat": 59.9550546, "lon": 10.6530682, "address": "Voksen skole, Landingsveien, Hovseter, Vestre Aker, Oslo, 0767, Norge", "color": "#2300db"}, {"name": "Trasop skole", "type": "Barneskole", "type_code": "B", "percentage": 14, "lat": 59.9056594, "lon": 10.8490279, "address": "Trasop skole, Hellerudfaret, Trasopp, Østensjø, Oslo, 0684, Norge", "color": "#2300db"}, {"name": "Hovseter skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 14, "lat": 59.9499189, "lon": 10.6555847, "address": "Hovseter skole, Landingsveien, Snippen, Vestre Aker, Oslo, 0770, Norge", "color": "#2300db"}, {"name": "Hasle skole", "type": "Barneskole", "type_code": "B", "percentage": 13, "lat": 59.9219586, "lon": 10.7897916, "address": "Hasle skole, Aud Schønemanns vei, Lille Tøyen hageby, Grünerløkka, Oslo, 0576, Norge", "color": "#2100dd"}, {"name": "Skøyen skole", "type": "Barneskole", "type_code": "B", "percentage": 13, "lat": 59.9292402, "lon": 10.6911537, "address": "Skøyen skole, Skøyensvingen, Heggeli, Ullern, Oslo, 0375, Norge", "color": "#2100dd"}, {"name": "Bøler skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 13, "lat": 59.8838953, "lon": 10.8491743, "address": "Bøler skole, General Ruges vei, Bøler, Østensjø, Oslo, 0691, Norge", "color": "#2100dd"}, {"name": "Oppsal skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 12, "lat": 59.8979404, "lon": 10.8440061, "address": "Oppsal skole, Vetlandsveien, Oppsal, Østensjø, Oslo, 0685, Norge", "color": "#1e00e0"}, {"name": "Midtstuen skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 12, "lat": 59.960488, "lon": 10.687591, "address": "Midtstuen skole, Heftyebakken, Vettakollen, Vestre Aker, Oslo, 0781, Norge", "color": "#1e00e0"}, {"name": "Engebråten skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 11, "lat": 59.95984, "lon": 10.775419, "address": "Engebråten skole, Kapellveien, Kjelsås, Nordre Aker, Oslo, 0493, Norge", "color": "#1c00e2"}, {"name": "Bjørnsletta skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 11, "lat": 59.928654, "lon": 10.6425735, "address": "Bjørnsletta skole, Åsjordet, Kjosehøyden, Ullern, Oslo, 0382, Norge", "color": "#1c00e2"}, {"name": "Nordberg skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 10, "lat": 59.962681, "lon": 10.7315313, "address": "Nordberg skole, Storkenebbveien, Kringsjå, Nordre Aker, Oslo, 0860, Norge", "color": "#1900e5"}, {"name": "Brannfjell skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 9, "lat": 59.8878426, "lon": 10.782125, "address": "Brannfjell skole, Erlandstuveien, Brannfjell, Nordstrand, Oslo, 1179, Norge", "color": "#1600e8"}, {"name": "Grefsen skole", "type": "Barneskole", "type_code": "B", "percentage": 9, "lat": 59.9546418, "lon": 10.7740032, "address": "Grefsen skole, Betzy Kjelsbergs vei, Gullhaug, Nordre Aker, Oslo, 0486, Norge", "color": "#1600e8"}, {"name": "Bygdøy skole", "type": "Barneskole", "type_code": "B", "percentage": 9, "lat": 59.9056108, "lon": 10.6771206, "address": "Bygdøy skole, Bygdøy Kapellvei, Sverresborg, Frogner, Oslo, 0287, Norge", "color": "#1600e8"}, {"name": "Nordseter skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 9, "lat": 59.8670285, "lon": 10.7958636, "address": "Nordseter skole, Ivar Knutsons vei, Nordseter borettslag, Nordstrand, Oslo, 1161, Norge", "color": "#1600e8"}, {"name": "Huseby skole", "type": "Barneskole", "type_code": "B", "percentage": 9, "lat": 59.9457881, "lon": 10.6535147, "address": "Huseby skole, Sørkedalsveien, Nordre Huseby, Vestre Aker, Oslo, 0768, Norge", "color": "#1600e8"}, {"name": "Morellbakken skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 8, "lat": 59.9484827, "lon": 10.7808943, "address": "Morellbakken skole, Bjerkealléen, Nordre Åsen, Nordre Aker, Oslo, 0487, Norge", "color": "#1400ea"}, {"name": "Tåsen skole", "type": "Barneskole", "type_code": "B", "percentage": 8, "lat": 59.953693, "lon": 10.7509642, "address": "Tåsen skole, Nordbergveien, Søndre Tåsen, Nordre Aker, Oslo, 0876, Norge", "color": "#1400ea"}, {"name": "Korsvoll skole", "type": "Barneskole", "type_code": "B", "percentage": 8, "lat": 59.9639436, "lon": 10.7524614, "address": "Korsvoll skole, Peder Ankers vei, Hamborg, Nordre Aker, Oslo, 0861, Norge", "color": "#1400ea"}, {"name": "Ris skole", "type": "Ungdomsskole", "type_code": "U", "percentage": 8, "lat": 59.9454221, "lon": 10.7067386, "address": "Ris skole, Viggo Hansteens vei, Ris, Vestre Aker, Oslo, 0373, Norge", "color": "#1400ea"}, {"name": "Lysejordet skole", "type": "Barneskole", "type_code": "B", "percentage": 7, "lat": 59.9371666, "lon": 10.6384289, "address": "Lysejordet skole, Vækerøveien, Ullernåsen, Ullern, Oslo, 0750, Norge", "color": "#1100ed"}, {"name": "Nordstrand skole", "type": "Barneskole", "type_code": "B", "percentage": 7, "lat": 59.8606361, "lon": 10.7941898, "address": "Nordstrand skole, Nordstrandveien, Sæter, Nordstrand, Oslo, 1162, Norge", "color": "#1100ed"}, {"name": "Kastellet skole", "type": "Barne- og ungdomsskole", "type_code": "BU", "percentage": 7, "lat": 59.8729364, "lon": 10.7928275, "address": "Kastellet skole, Birger Olivers vei, Nordseter, Nordstrand, Oslo, 1176, Norge", "color": "#1100ed"}, {"name": "Ekeberg skole", "type": "Barneskole", "type_code": "B", "percentage": 6, "lat": 59.8944652, "lon": 10.7846357, "address": "Ekeberg skole, Stamhusveien, Simensbråten, Nordstrand, Oslo, 1181, Norge", "color": "#0f00ef"}, {"name": "Bekkelaget skole", "type": "Barneskole", "type_code": "B", "percentage": 6, "lat": 59.8825291, "lon": 10.7849609, "address": "Bekkelaget skole, Skoleveien, Holtet, Nordstrand, Oslo, 1178, Norge", "color": "#0f00ef"}, {"name": "Kjelsås skole", "type": "Barneskole", "type_code": "B", "percentage": 5, "lat": 59.9663328, "lon": 10.7854903, "address": "Kjelsås skole, Myrerdraget, Østli, Nordre Aker, Oslo, 0494, Norge", "color": "#0c00f2"}, {"name": "Vinderen skole", "type": "Barneskole", "type_code": "B", "percentage": 5, "lat": 59.9413983, "lon": 10.7065774, "address": "Vinderen skole, Ivar Aasens vei, Vinderen, Vestre Aker, Oslo, 0373, Norge", "color": "#0c00f2"}, {"name": "Disen skole", "type": "Barneskole", "type_code": "B", "percentage": 5, "lat": 59.94825, "lon": 10.7946777, "address": "Disen skole, Kjelsåsveien, Lofthus, Nordre Aker, Oslo, 0488, Norge", "color": "#0c00f2"}, {"name": "Grindbakken skole", "type": "Barneskole", "type_code": "B", "percentage": 5, "lat": 59.9680628, "lon": 10.6470207, "address": "Grindbakken skole, Grindbakken, Vestre Aker, Oslo, 0764, Norge", "color": "#0c00f2"}, {"name": "Munkerud skole", "type": "Barneskole", "type_code": "B", "percentage": 4, "lat": 59.8585679, "lon": 10.8116362, "address": "Munkerud skole, Magnus Hydles vei, Nordstrand, Oslo, 1165, Norge", "color": "#0a00f4"}, {"name": "Slemdal skole", "type": "Barneskole", "type_code": "B", "percentage": 4, "lat": 59.9515517, "lon": 10.6926458, "address": "Slemdal skole, Frognerseterveien, Slemdal, Vestre Aker, Oslo, 0776, Norge", "color": "#0a00f4"}, {"name": "Holmen skole", "type": "Barneskole", "type_code": "B", "percentage": 3, "lat": 59.953213, "lon": 10.6753914, "address": "Holmen skole, Henrik Backers vei, Holmen, Vestre Aker, Oslo, 0783, Norge", "color": "#0700f7"}, {"name": "Svendstuen skole", "type": "Barneskole", "type_code": "B", "percentage": 3, "lat": 59.9583808, "lon": 10.688866, "address": "Svendstuen skole, Frognerseterveien, Vettakollen, Vestre Aker, Oslo, 0781, Norge", "color": "#0700f7"}, {"name": "Berg skole", "type": "Barneskole", "type_code": "B", "percentage": 2, "lat": 59.9495841, "lon": 10.7417224, "address": "Berg skole, Irisveien, Tåsen, Nordre Aker, Oslo, 0870, Norge", "color": "#0500f9"}, {"name": "Bogstad skole", "type": "Barneskole", "type_code": "B", "percentage": 2, "lat": 59.9609792, "lon": 10.6362407, "address": "Bogstad skole, Bjerkebakken, Voksen, Vestre Aker, Oslo, 0757, Norge", "color": "#0500f9"}];
+
+        // Calculate counts for each category
+        const counts = {
+            all: schools.length,
+            B: schools.filter(s => s.type_code === 'B').length,
+            U: schools.filter(s => s.type_code === 'U').length,
+            BU: schools.filter(s => s.type_code === 'BU').length
+        };
+
+        // Update count displays
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            const filter = btn.dataset.filter;
+            const countSpan = btn.querySelector('.count');
+            if (countSpan && counts[filter]) {
+                countSpan.textContent = counts[filter];
+            }
+        });
+
+        // Add markers for each school
+        schools.forEach(school => {
+            const color = school.color;
+
+            // Create a custom circle marker
+            const marker = L.circleMarker([school.lat, school.lon], {
+                radius: 6,
+                fillColor: color,
+                color: '#fff',
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            });
+
+            // Store reference to school data
+            marker.schoolData = school;
+
+            // Create tooltip content
+            const tooltipContent = `
+                <div class="school-tooltip">
+                    <div class="name">${school.name}</div>
+                    <div class="type">${school.type}</div>
+                    <div class="percentage">${school.percentage}% minoritetsspråkelige</div>
+                </div>
+            `;
+
+            // Bind tooltip that shows on hover
+            marker.bindTooltip(tooltipContent, {
+                permanent: false,
+                direction: 'top',
+                offset: [0, -5]
+            });
+
+            // Add hover effects
+            marker.on('mouseover', function(e) {
+                this.setStyle({
+                    radius: 8,
+                    weight: 2
+                });
+            });
+
+            marker.on('mouseout', function(e) {
+                this.setStyle({
+                    radius: 6,
+                    weight: 1
+                });
+            });
+
+            marker.addTo(map);
+            allMarkers.push(marker);
+        });
+
+        // Filter function
+        function filterMarkers(filterType) {
+            allMarkers.forEach(marker => {
+                const school = marker.schoolData;
+                if (filterType === 'all' || school.type_code === filterType) {
+                    marker.addTo(map);
+                } else {
+                    map.removeLayer(marker);
+                }
+            });
+
+            // Save filter to localStorage
+            localStorage.setItem('map_filter', filterType);
+        }
+
+        // Add click handlers to filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Apply filter
+                const filterType = this.dataset.filter;
+                filterMarkers(filterType);
+            });
+        });
+
+        // Apply saved filter on load
+        if (savedSettings.filter !== 'all') {
+            // Find and activate the correct button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === savedSettings.filter) {
+                    btn.classList.add('active');
+                    document.querySelector('.filter-btn[data-filter="all"]').classList.remove('active');
+                }
+            });
+            // Apply the filter
+            filterMarkers(savedSettings.filter);
+        }
+    </script>
+</body>
+</html>
