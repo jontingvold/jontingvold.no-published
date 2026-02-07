@@ -26,7 +26,7 @@
 </url>
 <url>
 <loc>https://www.jontingvold.no/articles/regulate-tech-and-set-markets-free.html</loc>
-<lastmod>2020-08-11T14:31:57+00:00</lastmod>
+<lastmod>2026-02-07T11:27:44+00:00</lastmod>
 </url>
 <url>
 <loc>https://www.jontingvold.no/articles/test-of-lstm-for-hydrology.html</loc>
@@ -49,12 +49,12 @@
 <lastmod>2024-10-31T22:40:46+00:00</lastmod>
 </url>
 <url>
-<loc>https://www.jontingvold.no/articles-unlisted/</loc>
-<lastmod>2024-10-31T22:40:46+00:00</lastmod>
-</url>
-<url>
 <loc>https://www.jontingvold.no/articles/</loc>
 <lastmod>2020-08-10T13:56:32+00:00</lastmod>
+</url>
+<url>
+<loc>https://www.jontingvold.no/articles-unlisted/</loc>
+<lastmod>2024-10-31T22:40:46+00:00</lastmod>
 </url>
 <url>
 <loc>https://www.jontingvold.no/</loc>
@@ -67,5 +67,9 @@
 <url>
 <loc>https://www.jontingvold.no/assets/fonts/Lucida%20Grande/test.html</loc>
 <lastmod>2020-06-05T14:30:38+00:00</lastmod>
+</url>
+<url>
+<loc>https://www.jontingvold.no/projects/oslo-skole-kart/</loc>
+<lastmod>2025-11-10T11:49:44+00:00</lastmod>
 </url>
 </urlset>
