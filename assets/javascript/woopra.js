@@ -1,0 +1,294 @@
+!(function () {
+  var t,
+    o,
+    c,
+    e = window,
+    n = document,
+    r = arguments,
+    a = "script",
+    i = [
+      "call",
+      "cancelAction",
+      "config",
+      "identify",
+      "push",
+      "track",
+      "trackClick",
+      "trackForm",
+      "update",
+      "visit",
+    ],
+    s = function () {
+      var t,
+        o = this,
+        c = function (t) {
+          o[t] = function () {
+            return (
+              o._e.push([t].concat(Array.prototype.slice.call(arguments, 0))),
+              o
+            );
+          };
+        };
+      for (o._e = [], t = 0; t < i.length; t++) c(i[t]);
+    };
+  for (e.__woo = e.__woo || {}, t = 0; t < r.length; t++)
+    e.__woo[r[t]] = e[r[t]] = e[r[t]] || new s();
+  (o = n.createElement(a)).async = 1;
+  o.src = "https://static.woopra.com/js/w.js";
+  (c = n.getElementsByTagName(a)[0]).parentNode.insertBefore(o, c);
+})("woopra");
+
+woopra.config({
+  domain: "jontingvold.no",
+  outgoing_tracking: true,
+  download_tracking: true,
+  click_tracking: true,
+});
+
+/* History navigation tracking.
+   history_index increments on forward navigation, decrements on back.
+   history.state.woopraHistoryIndex persists per-entry so back/forward restores it.
+   sessionStorage holds the last tracked index for diff computation. */
+var lastHistoryTrackingProps = null;
+
+function computeHistoryTracking(isInitial) {
+  var storedLast = parseInt(
+    sessionStorage.getItem("woopra_history_index"),
+    10,
+  );
+  var lastIndex = isNaN(storedLast) ? null : storedLast;
+  var stateIdx =
+    history.state && typeof history.state.woopraHistoryIndex === "number"
+      ? history.state.woopraHistoryIndex
+      : null;
+  var navEntry = performance.getEntriesByType("navigation")[0];
+  var navType = navEntry ? navEntry.type : "navigate";
+
+  var newIndex, type;
+  if (isInitial && navType === "reload") {
+    type = "reload";
+    newIndex =
+      stateIdx !== null ? stateIdx : lastIndex !== null ? lastIndex : 0;
+  } else if (lastIndex === null) {
+    type = "initial";
+    newIndex = stateIdx !== null ? stateIdx : 0;
+  } else if (stateIdx !== null && stateIdx !== lastIndex) {
+    type = stateIdx > lastIndex ? "forward" : "backward";
+    newIndex = stateIdx;
+  } else if (stateIdx !== null && stateIdx === lastIndex && isInitial) {
+    type = "initial";
+    newIndex = stateIdx;
+  } else {
+    type = "forward";
+    newIndex = lastIndex + 1;
+  }
+
+  var diff = lastIndex === null || type === "reload" ? 0 : newIndex - lastIndex;
+
+  history.replaceState(
+    Object.assign({}, history.state || {}, { woopraHistoryIndex: newIndex }),
+    "",
+    location.href,
+  );
+  sessionStorage.setItem("woopra_history_index", newIndex);
+
+  lastHistoryTrackingProps = {
+    history_index: newIndex,
+    history_index_diff: diff,
+    history_type: type,
+  };
+  return lastHistoryTrackingProps;
+}
+
+function isCurrentPage404() {
+  return !!document.querySelector('[data-page-status="404"]');
+}
+
+function track404IfNeeded() {
+  if (!isCurrentPage404()) return;
+  try {
+    var base = {
+      page_url: location.href,
+      page_title: document.title.trim(),
+      referrer: document.referrer || "",
+    };
+    if (lastHistoryTrackingProps) Object.assign(base, lastHistoryTrackingProps);
+    woopra.track("404", base);
+  } catch (e) {
+    /* Swallow */
+  }
+}
+
+function trackPageview(extraProps) {
+  var props = Object.assign(
+    { page_url: location.href, page_title: document.title },
+    extraProps || {},
+  );
+  woopra.track("pv", props);
+}
+
+trackPageview(computeHistoryTracking(true));
+track404IfNeeded();
+
+/* Track uncaught JavaScript errors */
+var errorsTracked = 0;
+var ERROR_LIMIT = 20;
+
+function trackError(props) {
+  if (errorsTracked >= ERROR_LIMIT) return;
+  errorsTracked++;
+  try {
+    var base = {
+      page_url: location.href,
+      page_title: document.title.trim(),
+      user_agent: navigator.userAgent,
+    };
+    if (lastHistoryTrackingProps) Object.assign(base, lastHistoryTrackingProps);
+    woopra.track("error", Object.assign(base, props));
+  } catch (e) {
+    /* Swallow — never let error tracking itself throw */
+  }
+}
+
+window.addEventListener(
+  "error",
+  function (event) {
+    /* Resource load failures (img/script/link) don't have an Error object;
+       they bubble only in the capture phase. */
+    if (event.target && event.target !== window && event.target.tagName) {
+      trackError({
+        error_type: "resource",
+        error_tag: event.target.tagName,
+        error_source: event.target.src || event.target.href || "",
+      });
+      return;
+    }
+
+    var err = event.error;
+    trackError({
+      error_type: "exception",
+      error_message: event.message || (err && err.message) || "",
+      error_source: event.filename || "",
+      error_line: event.lineno || 0,
+      error_column: event.colno || 0,
+      error_stack: err && err.stack ? String(err.stack).slice(0, 2000) : "",
+    });
+  },
+  true,
+);
+
+window.addEventListener("unhandledrejection", function (event) {
+  var reason = event.reason;
+  var message = "";
+  var stack = "";
+  if (reason instanceof Error) {
+    message = reason.message;
+    stack = reason.stack || "";
+  } else if (typeof reason === "string") {
+    message = reason;
+  } else {
+    try {
+      message = JSON.stringify(reason);
+    } catch (e) {
+      message = String(reason);
+    }
+  }
+  trackError({
+    error_type: "unhandledrejection",
+    error_message: message,
+    error_stack: String(stack).slice(0, 2000),
+  });
+});
+
+/* Track back/forward navigation restored from bfcache (load doesn't fire) */
+window.addEventListener("pageshow", function (event) {
+  if (event.persisted) {
+    trackPageview(computeHistoryTracking(true));
+    track404IfNeeded();
+  }
+});
+
+/* Track page views with InstantClick SinglePageApplication */
+var instantClickFetchStart = null;
+var instantClickWaitStart = null;
+
+InstantClick.on("fetch", function () {
+  instantClickFetchStart = performance.now();
+  instantClickWaitStart = null;
+});
+
+InstantClick.on("wait", function () {
+  instantClickWaitStart = performance.now();
+});
+
+InstantClick.on("change", function (isInitialLoad) {
+  if (isInitialLoad) return;
+
+  var now = performance.now();
+  var navExtra = {};
+
+  if (instantClickFetchStart !== null) {
+    navExtra.spa_fetch_to_display_ms = Math.round(
+      now - instantClickFetchStart,
+    );
+  }
+  if (instantClickWaitStart !== null) {
+    navExtra.spa_wait_to_display_ms = Math.round(now - instantClickWaitStart);
+  } else if (instantClickFetchStart !== null) {
+    navExtra.spa_wait_to_display_ms = 0;
+  }
+
+  instantClickFetchStart = null;
+  instantClickWaitStart = null;
+
+  Object.assign(navExtra, computeHistoryTracking(false));
+
+  trackPageview(navExtra);
+  track404IfNeeded();
+});
+
+/* Web performance logging — all values are ms since navigation start.
+   Defensive: if window.load already fired (possible when this file is
+   loaded async or very late), run immediately instead of waiting. */
+function trackPerformance() {
+  var nav = performance.getEntriesByType("navigation")[0];
+  if (!nav) return;
+
+  var cssBlock = performance.getEntriesByName("css:block")[0];
+  var cssUnblock = performance.getEntriesByName("css:unblock")[0];
+  var jsBlock = performance.getEntriesByName("javascript:block")[0];
+  var jsUnblock = performance.getEntriesByName("javascript:unblock")[0];
+  var fp = performance.getEntriesByName("first-paint")[0];
+  var fcp = performance.getEntriesByName("first-contentful-paint")[0];
+
+  var props = {
+    page_url: location.href,
+    page_title: document.title.trim(),
+    redirect_end_ms: Math.round(nav.redirectEnd),
+    dns_lookup_end_ms: Math.round(nav.domainLookupEnd),
+    tcp_connect_end_ms: Math.round(nav.connectEnd),
+    response_start_ms: Math.round(nav.responseStart),
+    response_end_ms: Math.round(nav.responseEnd),
+  };
+
+  if (cssBlock) props.css_block_ms = Math.round(cssBlock.startTime);
+  if (cssUnblock) props.css_unblock_ms = Math.round(cssUnblock.startTime);
+  if (fp) props.first_paint_ms = Math.round(fp.startTime);
+  if (fcp) props.first_contentful_paint_ms = Math.round(fcp.startTime);
+  if (jsBlock) props.javascript_block_ms = Math.round(jsBlock.startTime);
+  if (jsUnblock) props.javascript_unblock_ms = Math.round(jsUnblock.startTime);
+
+  props.dom_interactive_ms = Math.round(nav.domInteractive);
+  props.dom_complete_ms = Math.round(nav.domComplete);
+  props.load_event_end_ms = Math.round(nav.loadEventEnd);
+
+  if (lastHistoryTrackingProps) Object.assign(props, lastHistoryTrackingProps);
+
+  woopra.track("performance", props);
+}
+
+if (document.readyState === "complete") {
+  trackPerformance();
+} else {
+  window.addEventListener("load", trackPerformance);
+}
